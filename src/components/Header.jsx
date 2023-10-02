@@ -1,40 +1,36 @@
-// import logo from '/assets/img/Dollar4ScholarLogo.png'
-// import './header.css'
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+
 
 export default function Header() {
   return (<>
-  <header id="header" className="fixed-top d-flex align-items-center">
-    <div className="container d-flex align-items-center justify-content-between">
-
-      <div className="logo">
-        {/* <h1 className="text-light"><a href="index.html">Dollar4Scholar</a></h1> */}
-        <a href="index.html"><img src='./assets/img/Dollar4Scholar-Logo.png' alt="" className="img-fluid"/></a>
-
-        </div>
-
-        <nav id="navbar" className="navbar">
-            <ul>
-                <li className="dropdown"><a href="#"><span>Partners & Affiliates</span> <i className="bi bi-chevron-down"></i></a>
-                <ul>
-                    <li><a href="about.html">Colleges & Universities</a></li>
-                    <li><a href="team.html">Investors</a></li>
-                </ul>
-                </li>
-                <li className="dropdown"><a href="#"><span>How It Works</span> <i className="bi bi-chevron-down"></i></a>
-                <ul>
-                    <li><a href="about.html">For Donors</a></li>
-                    <li><a href="team.html">For Students</a></li>
-                </ul>
-                </li>
-                <li><a href="#">Donor Spotlight</a></li>
-                <li><a href="#">Contact Us</a></li>
-
-                <li><a className="getstarted" href="#">Login/Sign Up</a></li>
-            </ul>
-            <i className="bi bi-list mobile-nav-toggle"></i>
-         </nav>
-
-    </div>
+      <header id="header" className="fixed-top d-flex align-items-center">
+    <Navbar id="header" className="fixed-top justify-content-between" expand="lg">
+      <div className="container d-flex align-items-center justify-content-between">
+        <Navbar.Brand href="index.html" className='logo'>
+          <img
+            src='./assets/img/Dollar4Scholar-Logo.png'
+            alt=""
+            className="img-fluid logo"
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbar"  />
+        <Navbar.Collapse id="navbar" className='navbar justify-content-end'>
+          <Nav className="ml-auto ">
+            <NavDropdown title="Partners & Affiliates" id="partners-affiliates">
+              <NavDropdown.Item href="about.html">Universities</NavDropdown.Item>
+              <NavDropdown.Item href="team.html">Investors</NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="How It Works" id="how-it-works">
+              <NavDropdown.Item href="about.html">For Donors</NavDropdown.Item>
+              <NavDropdown.Item href="team.html">For Students</NavDropdown.Item>
+            </NavDropdown>
+            <Nav.Link href="#">Donor Spotlight</Nav.Link>
+            <Nav.Link href="#">Contact Us</Nav.Link>
+            <Nav.Link className="getstarted" href="#">Login/Sign Up</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </div>
+    </Navbar>
     </header>
   </>
 
