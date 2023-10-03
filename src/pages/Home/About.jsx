@@ -1,11 +1,16 @@
-import CountUp from 'react-countup';
-import { Player, BigPlayButton } from 'video-react';
-
+import {useEffect} from 'react';
+import  videoPlaceHolder from '../../assets/img/webpic.png'
+import PureCounter from "@srexi/purecounterjs";
+import GLightbox from 'glightbox';
 
 export default function About() {
+  useEffect(() => {
+   new PureCounter(),
+    GLightbox();
+  }, [])
 
     
-    const pot = 65;
+    // const pot = 65;
   return ( <>
 
     <section id="about" className="about">
@@ -16,42 +21,21 @@ export default function About() {
             <div className="col-lg-4 col-md-5 col-6 ">
               <div className="count-box py-5">
                 <i className="bi bi-coin"></i>
-                {/* <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span> */}
-                <CountUp start={0} end={pot} delay={0}>
-                    {({ countUpRef }) => (
-                        <div>
-                        <span ref={countUpRef} />
-                        </div>
-                    )}
-                    </CountUp>
+                <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
                 <p>This Weeks Pot</p>
               </div>
             </div>
             <div className="col-lg-4 col-md-5 col-6 ">
               <div className="count-box py-5">
                 <i className="bi bi-clock"></i>
-                {/* <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span> */}
-                <CountUp start={0} end={7} delay={0}>
-                    {({ countUpRef }) => (
-                        <div>
-                        <span ref={countUpRef} />
-                        </div>
-                    )}
-                    </CountUp>
+                <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
                 <p>Time left to enter</p>
               </div>
             </div>
             <div className="col-lg-4 col-md-5 col-6 ">
               <div className="count-box py-5">
                 <i className="bi bi-journal-richtext"></i>
-                {/* <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span> */}
-                <CountUp start={7} end={0} delay={0}>
-                    {({ countUpRef }) => (
-                        <div>
-                        <span ref={countUpRef} />
-                        </div>
-                    )}
-                    </CountUp>
+                <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
                 <p>Countdown</p>
               </div>
             </div>
@@ -62,12 +46,8 @@ export default function About() {
 
       <div className="row">
         <div className="col-lg-6 video-box align-self-baseline position-relative">
-          {/* <img src="assets/img/webpic.png" className="img-fluid" alt="" /> */}
-          <Player playsInline poster='assets/img/webpic.png' className='glightbox '>
-                <BigPlayButton position="center" />
-            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
-        </Player>
-          {/* <a href="https://www.youtube.com/watch?v=RuZglxY4EuM" className="glightbox play-btn mb-4"></a> */}
+          <img src={videoPlaceHolder } className="img-fluid" alt="" />
+          <a href="https://www.youtube.com/watch?v=RuZglxY4EuM" className="glightbox play-btn mb-4"></a>
         </div>
         <div className="col-lg-6 pt-3 pt-lg-0 content">
           <h3>Check Out This Video to See How it Works!</h3>

@@ -1,4 +1,5 @@
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import logo from '../assets/img/Dollar4Scholar-Logo.png';
 
 
 export default function Header() {
@@ -8,7 +9,7 @@ export default function Header() {
       <div className="container d-flex align-items-center justify-content-between">
         <Navbar.Brand href="index.html" className='logo'>
           <img
-            src='./assets/img/Dollar4Scholar-Logo.png'
+            src={logo}
             alt=""
             className="img-fluid logo"
           />
