@@ -1,6 +1,6 @@
 // Note: Hero component for Home page
 import { useEffect } from 'react';
-import backgroundImage from '../../assets/img/hero-bg.jpg';
+import backgroundImage from '../../assets/img/AdobeStock_591753369_Video_Hd_Preview.gif';
 import AOS from 'aos';
 
 export default function Hero() {
@@ -12,7 +12,7 @@ export default function Hero() {
     <section id="hero" style={{ 
       backgroundImage: `url(${backgroundImage})` 
     }}>
- 
+      
         <div className="hero-container" data-aos="fade-up">
         
           <h1>Add a Play To Your Financial Aid!</h1>
