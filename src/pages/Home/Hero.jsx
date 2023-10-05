@@ -1,6 +1,6 @@
 // Note: Hero component for Home page
 import { useEffect } from 'react';
-import backgroundImage from '../../assets/img/AdobeStock_591753369_Video_Hd_Preview.gif';
+import backgroundImage from '../../assets/img/AdobeStock_591753369_Video_Hd_Preview.mp4';
 import AOS from 'aos';
 
 export default function Hero() {
@@ -9,12 +9,18 @@ export default function Hero() {
   }, [])
   
   return (<>
-    <section id="hero" style={{ 
-      backgroundImage: `url(${backgroundImage})` 
-    }}>
+    <section id="hero" 
+    // style={{ 
+    //   backgroundImage: `url(${backgroundImage})` 
+    // }}
+    >
       
         <div className="hero-container" data-aos="fade-up">
-        
+        <video  muted  loop autoPlay  >
+          <source src={backgroundImage} type="video/mp4" />
+        </video>
+        </div>
+        <div className="hero-container" data-aos="fade-up">
           <h1>Add a Play To Your Financial Aid!</h1>
           <form action="" method="post">
             <input type="email" placeholder="Student Email" name="email" />

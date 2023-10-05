@@ -5,9 +5,9 @@
 export default function Footer() {
   return (
   <>
-  <footer id="footer">
-  <div className="footer-top">
-    <div className="container">
+  <footer id="footer"  bg="#223D59">
+  <div className="footer-top " bg="#223D59">
+    <div className="container" bg="#223D59">
         <div className="row">
 
         <div className="col-lg-3 col-md-6 footer-info">
