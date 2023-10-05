@@ -6,22 +6,23 @@ let timeoutId;
 export default function NotificationProvider({ children }) {
   const [notification, setNotification] = useState("");
   const [classes, setClasses] = useState("");
-
+  console.log("notification", notification);
+  console.log("classes", classes);
   const updateNotification = (type, value) => {
     if (timeoutId) clearTimeout(timeoutId);
 
     switch (type) {
       case "error":
-        setClasses("bg-red-500");
+        setClasses("bg-danger");
         break;
       case "success":
-        setClasses("bg-green-500");
+        setClasses("bg-success");
         break;
       case "warning":
-        setClasses("bg-orange-500");
+        setClasses("bg-warning");
         break;
       default:
-        setClasses("bg-red-500");
+        setClasses("bg-danger");
     }
     setNotification(value);
 
@@ -34,7 +35,7 @@ export default function NotificationProvider({ children }) {
     <NotificationContext.Provider value={{ updateNotification }}>
       {children}
       {notification && (
-        <div className="fixed left-1/2 -translate-x-1/2 top-24 z-50">
+        <div className="note " style={{position: 'fixed', zIndex:999}}>
           <div className="bounce-custom shadow-md shadow-gray-400 rounded">
             <p className={classes + " text-white px-4 py-2 font-semibold"}>
               {notification}
