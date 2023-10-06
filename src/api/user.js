@@ -1,6 +1,6 @@
 import client from "./client";
-import { getToken } from "../utils/helper.js";
-import { catchError } from "../utils/helper.js";
+import { getToken } from "../utils/helper.jsx";
+import { catchError } from "../utils/helper.jsx";
 
 export const getProfile = async (userId) => {
     const token = getToken();

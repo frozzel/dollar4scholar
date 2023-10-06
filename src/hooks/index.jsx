@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { NotificationContext } from "../context/NotificationProvider";
-import { AuthContext } from "../context/AuthProvider";
+import { NotificationContext } from "../context/NotificationContext";
+import { AuthContext } from "../context/AuthContext";
 
 
 

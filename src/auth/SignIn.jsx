@@ -6,7 +6,7 @@ import CustomLink from "../components/CustomLink";
 import { commonModalClasses } from "../utils/theme";
 import { useNotification, useAuth } from "../hooks";
 import { isValidEmail } from "../utils/helper";
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import AOS from 'aos';
 
 
@@ -26,17 +26,17 @@ const validateUserInfo = ({ email, password }) => {
 
 
 export default function SignIn() {
+  const [message, setMessage] = useState("");
 
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
   });
-  
   const {updateNotification} = useNotification()
   const {handleLogin, authInfo} = useAuth();
   const {isPending} = authInfo;
+  const {notification} = useNotification();
 
-  
 
   const handleChange = ({target}) => {
     const {name, value} = target;
@@ -49,11 +49,15 @@ export default function SignIn() {
     e.preventDefault();
 
     const {ok, error}  = validateUserInfo(userInfo);
-    
-    if(!ok) return updateNotification('error', error, );
+    if(!ok) return updateNotification("error", error)
     handleLogin(userInfo.email, userInfo.password);
+    // setMessage(notification)
+
   }
- 
+  useEffect(() => {
+    setMessage(notification)
+  } , [notification])
+
   // useEffect(() => {
   //   if(isLoggedIn) navigate('/');
   // }, [isLoggedIn, navigate])
@@ -84,12 +88,14 @@ export default function SignIn() {
           <Title >Sign In</Title>
           <FormInput  value={userInfo.email} onChange={handleChange} label="Email" name="email"  placeholder="your@email.com" />
           <FormInput value={userInfo.password} onChange={handleChange}  label="Password" name="password" type="password"  placeholder="********" />
+          <div className="text-danger text-center">{message}</div>
           <Submit value="Sign In" busy={isPending}></Submit>
-          <div className="d-flex justify-content-around align-items-center">
+          <div className="d-flex justify-content-around align-items-center pb-2">
             <CustomLink to="/auth/forget-password">Forget Password</CustomLink>
             <CustomLink to="/auth/SignUp">Sign Up</CustomLink>
             
           </div>
+        
         </Form>
         {/* </Form> */}
           </Col>
