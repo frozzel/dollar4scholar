@@ -1,11 +1,12 @@
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import logo from '../assets/img/Dollar4Scholar-Logo.png';
-
+import  NotificationProvider from '../context/NotificationProvider';
 
 export default function Header() {
   return (<>
+ 
       <header id="header" className="header fixed-top d-flex align-items-center">
-
+      <NotificationProvider>
 <Navbar id="header" className="fixed-top" collapseOnSelect expand="lg" >
       <div className="container">
         <Navbar.Brand href="/" className='logo'>
@@ -34,6 +35,7 @@ export default function Header() {
         </Navbar.Collapse>
       </div>
     </Navbar>
+    </NotificationProvider>
     </header>
   </>
 

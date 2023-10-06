@@ -1,4 +1,6 @@
 import client from "./client";
+import { catchError } from "../utils/helper.jsx";
+
 
 export const createUser = async (userInfo) => {
   try {
@@ -17,6 +19,7 @@ export const verifyUserEmail = async (userInfo) => {
     const { data } = await client.post("/user/verify-email", userInfo);
     return data;
   } catch (error) {
+    return catchError(error);
     const { response } = error;
     if (response?.data) return response.data;
 
