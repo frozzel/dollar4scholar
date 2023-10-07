@@ -110,7 +110,7 @@ export default function SignUp() {
                   <div className="text-danger text-center">{message}</div>
                   <Submit value="Sign Up"></Submit>
                   <div className="d-flex justify-content-around align-items-center pb-2">
-                    <CustomLink to="/auth/forget-password">Forget Password</CustomLink>
+                    <CustomLink to="/auth/forget-password">Forgot Password</CustomLink>
                     <CustomLink to="/auth/SignIn">Sign In</CustomLink>
                   </div>
                 </form>

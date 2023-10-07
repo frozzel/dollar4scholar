@@ -8,6 +8,10 @@ import Footer from "./components/Footer";
 import SignUp from "./auth/SignUp";
 import SignIn from "./auth/SignIn";
 import EmailVerification from "./auth/EmailVerification.jsx";
+import NotFound from "./pages/NotFound";
+import ForgetPassword from "./auth/ForgetPassword";
+import ConfirmPassword from "./auth/ConfirmPassword";
+import Collegesnuniversities from "./pages/Collegesnuniversities";
 
 
 
@@ -19,6 +23,10 @@ function App() {
         <Route path='/auth/SignUp' element={<SignUp/>} />
         <Route path='/auth/SignIn' element={<SignIn/>} />
         <Route path='/auth/verification' element={<EmailVerification/>} />
+        <Route path='*' element={<NotFound/>} />
+        <Route path='/auth/forget-Password' element={<ForgetPassword/>} />
+        <Route path='/auth/reset-password' element={<ConfirmPassword/>} />
+        <Route path='/Collegesnuniversities' element={<Collegesnuniversities/>} />
       </Routes>
     <Footer />
    

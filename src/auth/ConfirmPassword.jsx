@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ImSpinner3 } from "react-icons/im";
-import { commonModalClasses } from "../../utils/theme";
-import Container from "../Container";
+import { commonModalClasses } from "../utils/theme";
+// import Container from "../components/Container";
 import FormContainer from "../form/FormContainer";
 import FormInput from "../form/FormInput";
 import Submit from "../form/Submit";
 import Title from "../form/Title";
-import { verifyPasswordResetToken, resetPassword } from "../../api/auth";
-import { useNotification } from "../../hooks";
+import { verifyPasswordResetToken, resetPassword } from "../api/auth";
+import { useNotification } from "../hooks";
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import AOS from 'aos';
+import forgot from '../assets/img/forgot.jpg';
+
  
 
 export default function ConfirmPassword() {
@@ -21,14 +25,26 @@ export default function ConfirmPassword() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   const id = searchParams.get("id");
+  const [message, setMessage] = useState("");
 
   const { updateNotification } = useNotification();
+  const { notification } = useNotification(); 
   const navigate = useNavigate();
 
   // isValid, !isValid
   useEffect(() => {
     isValidToken();
   }, []);
+
+  useEffect(() => {
+    AOS.init({duration: 2000, once: true});
+  }
+  , [])
+
+  useEffect(() => {
+    setMessage(notification)
+  } , [notification])
+
 
   const isValidToken = async () => {
     const { error, valid } = await verifyPasswordResetToken(token, id);
@@ -71,6 +87,18 @@ export default function ConfirmPassword() {
 
   if (isVerifying)
     return (
+      <section className="vh-80">
+      <main id="main">
+        <Container  className="py-5 h-100 " data-aos="fade-up">
+          <Row className="d-flex align-items-center justify-content-center h-100">          
+          <Col md={8} lg={7} xl={6}>
+            <img
+              src={forgot}
+              className="img-fluid"
+              alt="Phone image"
+            />
+          </Col>
+          <Col md={7} lg={5} xl={5} className="offset-xl-1">
       <FormContainer>
         <Container>
           <div className="flex space-x-2 items-center">
@@ -81,10 +109,27 @@ export default function ConfirmPassword() {
           </div>
         </Container>
       </FormContainer>
+      </Col>
+    </Row>
+      </Container>
+     </main>
+    </section>
     );
 
   if (!isValid)
     return (
+      <section className="vh-80">
+      <main id="main">
+        <Container  className="py-5 h-100 " data-aos="fade-up">
+          <Row className="d-flex align-items-center justify-content-center h-100">          
+          <Col md={8} lg={7} xl={6}>
+            <img
+              src={forgot}
+              className="img-fluid"
+              alt="Phone image"
+            />
+          </Col>
+          <Col md={7} lg={5} xl={5} className="offset-xl-1">
       <FormContainer>
         <Container>
           <h1 className="text-4xl font-semibold dark:text-white text-primary">
@@ -92,9 +137,26 @@ export default function ConfirmPassword() {
           </h1>
         </Container>
       </FormContainer>
+      </Col>
+    </Row>
+      </Container>
+     </main>
+    </section>
     );
 
   return (
+    <section className="vh-80">
+      <main id="main">
+        <Container  className="py-5 h-100 " data-aos="fade-up">
+          <Row className="d-flex align-items-center justify-content-center h-100">          
+          <Col md={8} lg={7} xl={6}>
+            <img
+              src={forgot}
+              className="img-fluid"
+              alt="Phone image"
+            />
+          </Col>
+          <Col md={7} lg={5} xl={5} className="offset-xl-1">
     <FormContainer>
       <Container>
         <form onSubmit={handleSubmit} className={commonModalClasses + " w-96"}>
@@ -115,9 +177,17 @@ export default function ConfirmPassword() {
             name="two"
             type="password"
           />
+                    <div className="text-danger text-center">{message}</div>
+
           <Submit value="Confirm Password" />
         </form>
       </Container>
     </FormContainer>
+ 
+</Col>
+    </Row>
+      </Container>
+     </main>
+    </section>
   );
 }
