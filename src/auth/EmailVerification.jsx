@@ -39,6 +39,7 @@ export default function EmailVerification() {
 
   const { state } = useLocation();
   const user = state?.user;
+  
 
   const navigate = useNavigate();
 
@@ -165,9 +166,9 @@ export default function EmailVerification() {
           <Button type="submit" className="getstarted3" style={{ textDecoration: 'none', outline: "none" }}>
             Verify Account
           </Button>
-          <CustomLink onClick={handleOTPResend} type="button" className="btn btn-link text-primary font-weight-bold">
+          <button onClick={handleOTPResend} type="button" className="btn btn-link text-primary font-weight-bold">
             I don't have a code
-          </CustomLink>
+          </button>
         </div>
         <div className="text-danger text-center">{message}</div>
       </form>

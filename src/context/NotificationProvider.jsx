@@ -40,11 +40,11 @@ export default function NotificationProvider({ children }) {
       {children}
       {notification && (
  <div className="note  left-50 translateX(-50%) top-6 " style={{ position: 'relative', zIndex: 1001 }}>
- <div className="note bounce-custom shadow-md shadow-gray-400 rounded">
+ {/* <div className="note bounce-custom shadow-md shadow-gray-400 rounded">
    <p className={`${classes} text-white px-4 py-2 font-semibold`}>
      {notification}
    </p>
- </div>
+ </div> */}
 </div>
 
 

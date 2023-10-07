@@ -91,7 +91,7 @@ export default function SignIn() {
           <div className="text-danger text-center">{message}</div>
           <Submit value="Sign In" busy={isPending}></Submit>
           <div className="d-flex justify-content-around align-items-center pb-2">
-            <CustomLink to="/auth/forget-password">Forget Password</CustomLink>
+            <CustomLink to="/auth/forget-password">Forgot Password</CustomLink>
             <CustomLink to="/auth/SignUp">Sign Up</CustomLink>
             
           </div>

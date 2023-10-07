@@ -49,6 +49,9 @@ flex: 1;
 height: 1px;
 background: #eee;
 }
+.notV{
+  margin-top: 75px;
+}
 
 /*--------------------------------------------------------------
 # Back to top button
@@ -93,23 +96,6 @@ background: #eee;
   }
 }
 
-/* Style the video: 100% width and height to cover the entire window */
-#myVideo {
-  /* position: fixed;
-  right: 0; */
-  top: 0;
-  /* min-width: 100%;
-  min-height: 100%; */
-   background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    height: 100%;
-    width: 100%;
-    color: #eeeeee;
-    text-align: center;
-    display: table;
- }
 
 /*--------------------------------------------------------------
 # Header
@@ -145,6 +131,12 @@ background: #eee;
 .note {
   z-index: 1001;
 }
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 /*--------------------------------------------------------------
 # Navigation Menu
@@ -208,8 +200,8 @@ background: #eee;
 .getstarted2,
 .getstarted2:focus {
   background: #223D59;
-  /* padding: 8px 8px; */
-  /* margin-left: 30px; */
+  padding: 8px 25px;
+  margin-left: 30px;
   border-radius: 50px;
   color: #fff;
   width: 90%;
@@ -219,8 +211,8 @@ background: #eee;
 .getstarted3,
 .getstarted3:focus {
   background: #223D59;
-  /* padding: 8px 8px; */
-  /* margin-left: 30px; */
+  padding: 8px 8px;
+  margin-left: 30px;
   border-radius: 50px;
   color: #fff;
   /* width: 90%; */
@@ -251,6 +243,18 @@ background: #eee;
   background: #9fc658;
   text-decoration: none !important;
   outline: none !important;
+}
+.navbar-nav {
+  background-color: white;
+  padding: .75rem;
+  border-radius: 5px;
+  
+}
+.navbar-nav .getstarted{
+  margin-left: 0px;
+  /* background-color: white;
+  color: #9fc658; */
+  
 }
 
 .navbar .dropdown ul {
@@ -640,7 +644,7 @@ section {
 .breadcrumbs .breadcrumb-hero {
   text-align: center;
   background: #94c045;
-  padding: 20px 0;
+  padding: 10px 0;
   color: #fff;
 }
 
