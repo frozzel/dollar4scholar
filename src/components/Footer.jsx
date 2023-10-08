@@ -23,11 +23,13 @@ export default function Footer() {
           <div className="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><a href="#">Partner & Affiliates</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">How it Works</a></li>
-              <li><a href="#">Terms of service</a></li>
-              <li><a href="#">Privacy policy</a></li>
+              <li><a href="/Collegesnuniversities">Universities</a></li>
+              <li><a href="Investors">Investors</a></li>
+              <li><a href="/Contact">Contact</a></li>
+              <li><a href="/About">About</a></li>
+              
+              <li><a href="/auth/SignIn">Login</a></li>
+              
             </ul>
           </div>
 
