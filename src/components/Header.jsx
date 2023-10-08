@@ -25,15 +25,15 @@ export default function Header() {
           <Nav>
             <NavDropdown title="Partners & Affiliates" id="partners-dropdown">
               <NavDropdown.Item href="/collegesnuniversities">Universities</NavDropdown.Item>
-              <NavDropdown.Item href="investors.html">Investors</NavDropdown.Item>
+              <NavDropdown.Item href="/investors">Investors</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="How It Works" id="how-it-works-dropdown">
-              <NavDropdown.Item href="about.html">About</NavDropdown.Item>
-              <NavDropdown.Item href="donor.html">For Donors</NavDropdown.Item>
-              <NavDropdown.Item href="student.html">For Students</NavDropdown.Item>
+              <NavDropdown.Item href="/about">About</NavDropdown.Item>
+              <NavDropdown.Item href="donor">For Donors</NavDropdown.Item>
+              <NavDropdown.Item href="/student">For Students</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link href="#">Donor Spotlight</Nav.Link>
-            <Nav.Link href="contact.html">Contact Us</Nav.Link>
+            <Nav.Link href="/contact">Contact Us</Nav.Link>
             {isLoggedIn ? (<>
             <Nav.Link className='' href="/dashboard">Dashboard</Nav.Link>
             <Nav.Link className='getstarted' href="/auth/signIn" onClick={handleLogout}>LogOut/Exit</Nav.Link></>
