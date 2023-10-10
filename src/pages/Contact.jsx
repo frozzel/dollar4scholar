@@ -1,5 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import AOS from 'aos';
+import emailjs from '@emailjs/browser';
+import { useState } from 'react';
+import { useNotification } from '../hooks';
 
 const Breadcrumbs = () => {
   return (
@@ -23,12 +26,37 @@ const Breadcrumbs = () => {
 };
 
 const ContactSection = () => {
+    const form = useRef();
+    const [message, setMessage] = useState("");
+    const {updateNotification} = useNotification()
+    const {notification} = useNotification();
+
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+    
+        emailjs.sendForm('service_7id53gb', 'template_jnslxz5', form.current, '9-U_xZJNUduY3ojDx')
+        .then(
+            (result) => {
+            updateNotification("ok", result.text)
+            form.current.reset()
+            },
+            (error) => {
+              updateNotification("error", error.text)
+            }
+          )
+      }
+
     useEffect(() => {
         AOS.init({
         duration : 2000
         });
     }
         , [])
+    
+    useEffect(() => {
+        setMessage(notification)
+        } , [notification])
   return (
     <section id="contact" className="contact">
       <div className="container">
@@ -56,7 +84,7 @@ const ContactSection = () => {
             </div>
           </div>
           <div className="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left">
-            <form action="forms/contact.php" method="post" role="form" className="php-email-form">
+            <form ref={form} onSubmit={sendEmail} className="php-email-form">
               <div className="row">
                 <div className="col-md-6 form-group">
                   <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" required />
@@ -76,7 +104,10 @@ const ContactSection = () => {
                 <div className="error-message"></div>
                 <div className="sent-message">Your message has been sent. Thank you!</div>
               </div>
-              <div className="text-center"><button type="submit">Send Message</button></div>
+              <div className="text-danger text-center">{message}</div>
+
+              <div className="text-center"><button type="submit" value="send">Send Message</button></div>
+
             </form>
           </div>
         </div>
