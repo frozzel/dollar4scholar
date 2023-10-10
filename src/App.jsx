@@ -17,6 +17,7 @@ import About from "./pages/About";
 import Donor from "./pages/Donor";
 import Student from "./pages/Student";
 import Contact from "./pages/Contact";
+import Dashboard from "./pages/Dashboard";
 
 
 
@@ -37,6 +38,7 @@ function App() {
         <Route path='/Donor' element={<Donor/>} />
         <Route path='/Student' element={<Student/>} />
         <Route path='/Contact' element={<Contact/>} />
+        <Route path='/Dashboard' element={<Dashboard/>} />
       </Routes>
     <Footer />
    
