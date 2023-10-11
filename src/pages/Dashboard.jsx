@@ -51,20 +51,22 @@ const Dashboard = () => {
                 <p className="text-muted mb-1">Full Stack Developer</p>
                 <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
                 <div className="d-flex justify-content-center mb-2 ">
-                  <Button type="button" className="getstarted2 " variant="outline-*" style={{textDecoration: 'none', outline: "none"}}>edit</Button>
-                  {/* <button type="button" className="btn btn-outline-primary ms-1">Message</button> */}
+                  <Button type="button" className="getstarted2 " variant="outline-*" style={{textDecoration: 'none', outline: "none"}}>Edit</Button>
                 </div>
               </div>
             </div>
             <div className="card mb-4 mb-lg-0">
               <div className="card-body p-0">
                 <ul className="list-group list-group-flush rounded-3">
-                    <h5 className='my-3 text-center'>Wallet</h5>
-                  <li className="list-group-item d-flex justify-content-between align-items-center p-3">
+                    <h5 className='mt-3 text-center'>Wallet</h5>
+                  <li className=" d-flex justify-content-between align-items-center px-4 ">
                     
-                  <i className="bi bi-coin " style={{ color: '#94c045',  fontSize: 36}} ></i>
-                    <p className="mb-0" style={{color: "#94c045", fontSize: 36}}>$22.00</p>
+                  <i className="bi bi-coin " style={{ color: '#94c045',  fontSize: 32}} ></i>
+                    <p className="" style={{color: "#94c045", fontSize: 32}}>$22.00</p>
                   </li>
+                  <li className=" d-flex justify-content-between align-items-center px-2">
+                  <Button className="getstarted2 " variant="outline-*">Add Funds</Button>
+                    </li>
                   {/* <li className="list-group-item d-flex justify-content-between align-items-center p-3">
                     <i className="fab fa-github fa-lg" style={{ color: '#333333' }}></i>
                     <p className="mb-0">mdbootstrap</p>
@@ -148,32 +150,36 @@ const Dashboard = () => {
               <div className="col-lg-12">
                 <div className="card mb-4">
                   <div className="card-body">
-                    <p className="mb-4"><span className="text-primary font-italic me-1">Buy In!</span> Current Pot Status</p>
-                    <section id="about" className="about" style={{padding: 0}}>
-    <div className="">
-      <div className="row justify-content-center">
+                    <h5 className="text-center "> Current Pot Status</h5>
+                    
+                    <section id="about" className="about justify-content-between "  style={{padding: 0}}>
+    <div className=" justify-content-between " >
+      <div className="row justify-content-center" >
         <div className="col-lg-12">
-          <div className="row justify-content-center">
-            <div className="col-lg-4 col-md-5 col-6 ">
-              <div className="count-box py-4">
-                <i className="bi bi-coin"></i>
+          <div className="row justify-content-center" >
+            <div className="col-lg-4 col-md-5 col-6 text-center">
+              <div className="count-box py-4 text-center">
+                <i className="bi bi-coin text-center"></i>
                 <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
                 <p>This Weeks Pot</p>
               </div>
             </div>
-            <div className="col-lg-4 col-md-5 col-6 ">
-              <div className="count-box py-4">
-                <i className="bi bi-clock"></i>
+            <div className="col-lg-4 col-md-5 col-6 text-center">
+              <div className="count-box py-4 text-center">
+                <i className="bi bi-clock text-center"></i>
                 <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
                 <p>Time left to enter</p>
               </div>
             </div>
-            <div className="col-lg-4 col-md-5 col-6 ">
-              <div className="count-box py-4">
-                <i className="bi bi-journal-richtext"></i>
+            <div className="col-lg-4 col-md-5 col-6 text-center">
+              <div className="count-box py-4 text-center">
+                <i className="bi bi-journal-richtext text-center"></i>
                 <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
                 <p>Countdown</p>
               </div>
+            </div>
+            <div className=" text-center mb-2">
+      <Button className="getstarted2" variant="outline-*">Buy In</Button>
             </div>
             {/* Add more count boxes as needed */}
           </div>
