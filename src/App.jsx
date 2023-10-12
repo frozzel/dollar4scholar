@@ -38,7 +38,7 @@ function App() {
         <Route path='/Donor' element={<Donor/>} />
         <Route path='/Student' element={<Student/>} />
         <Route path='/Contact' element={<Contact/>} />
-        <Route path='/Dashboard' element={<Dashboard/>} />
+        <Route path='/Dashboard/:userId' element={<Dashboard/>} />
       </Routes>
     <Footer />
    

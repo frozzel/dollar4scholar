@@ -133,7 +133,7 @@ export default function EmailVerification() {
           <Col md={7} lg={5} xl={5} className="offset-xl-1 ">
 
     <FormContainer className="container">
-      <form onSubmit={handleSubmit} className={commonModalClasses }>
+      <form onSubmit={handleSubmit} className={commonModalClasses } variant="outline-*">
         <div className="text-center  pt-4">
           <h5>Please enter the Code to verify your account</h5>
           <p className="text-light-subtle">
@@ -163,7 +163,7 @@ export default function EmailVerification() {
           </div> */}
   
         <div className="d-flex justify-content-around align-items-center pb-4">
-          <Button type="submit" className="getstarted3" style={{ textDecoration: 'none', outline: "none" }}>
+          <Button type="submit" className="getstarted3" style={{ textDecoration: 'none', outline: "none" }} variant="outline-*">
             Verify Account
           </Button>
           <button onClick={handleOTPResend} type="button" className="btn btn-link text-primary font-weight-bold">

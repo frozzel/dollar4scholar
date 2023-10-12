@@ -7,6 +7,7 @@ import { useAuth } from '../hooks';
 export default function Header() {
   const {authInfo, handleLogout} = useAuth()
   const {isLoggedIn} = authInfo;
+  const {profile} = authInfo;
   return (<>
  
       <header id="header" className="header fixed-top d-flex align-items-center">
@@ -36,7 +37,7 @@ export default function Header() {
             <Nav.Link href="#">Donor Spotlight</Nav.Link>
             <Nav.Link href="/contact">Contact Us</Nav.Link>
             {isLoggedIn ? (<>
-            <Nav.Link className='' href="/dashboard">Dashboard</Nav.Link>
+            <Nav.Link className='' href={"/dashboard/"+ profile?.id} >Dashboard</Nav.Link>
             <Nav.Link className='getstarted' href="/auth/signIn" onClick={handleLogout}>LogOut/Exit</Nav.Link></>
             ) : (<><Nav.Link className='getstarted' href="/auth/signIn">Login/Sign Up</Nav.Link></>)}
             {/* <Nav.Link className='getstarted' href="/auth/signIn">Login/Sign Up</Nav.Link> */}
