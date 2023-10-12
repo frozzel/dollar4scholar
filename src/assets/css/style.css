@@ -50,8 +50,18 @@ height: 1px;
 background: #eee;
 }
 .notV{
-  margin-top: 75px;
+  margin-top: 73.5px;
+  background-color: w3-yellow;
+  border: none;
+  text-decoration: none !important;
+
 }
+/* .notV:hover{
+  background-color: #223D59;
+  border: none;
+  text-decoration: none !important;
+  color: white
+} */
 
 /*--------------------------------------------------------------
 # Back to top button

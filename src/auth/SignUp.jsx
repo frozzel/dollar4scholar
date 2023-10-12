@@ -12,9 +12,10 @@ import { useNotification, useAuth } from "../hooks";
 import { isValidEmail } from "../utils/helper";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import AOS from 'aos';
+import Selector from "../components/Selector";
 
 
-const validateUserInfo = ({ name, email, password, username }) => {
+const validateUserInfo = ({ name, email, password, type }) => {
  
   const isValidName = /^[a-z A-Z]+$/;
 
@@ -23,7 +24,7 @@ const validateUserInfo = ({ name, email, password, username }) => {
 
   if (!email.trim()) return { ok: false, error: "Email is missing!" };
   if (!isValidEmail(email)) return { ok: false, error: "Invalid email!" };
-  if (!username.trim()) return { ok: false, error: "Username is missing!" };
+  if (!type.trim()) return { ok: false, error: "Type is missing!" };
 
 
   if (!password.trim()) return { ok: false, error: "Password is missing!" };
@@ -43,8 +44,15 @@ export default function SignUp() {
     name: "",
     email: "",
     password: "",
-    username: "",
+    type: "",
   });
+
+  const typeOptions = [
+    { title: "Student", value: "student" },
+    { title: "Donor", value: "donor" },
+    // { title: "Other", value: "other" },
+  ];
+  
 
   const navigate = useNavigate();
 
@@ -58,20 +66,20 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     const {ok, error}  = validateUserInfo(userInfo);
 
     if(!ok) return updateNotification('error', error, );
 
     const response = await createUser(userInfo);
-    if(response.error) return alert(response.error);
+    if(response.error) return updateNotification(response.error);
     navigate("/auth/verification", {
       state: {user: response.user}, 
       replace: true
     });
 
   }
-  const { name, email, password, username } = userInfo;
+  const { name, email, password, type } = userInfo;
 
   useEffect(() => {
     if(isLoggedIn) navigate('/');
@@ -105,7 +113,17 @@ export default function SignUp() {
                   <Title >Sign Up</Title>
                   <FormInput value={name} onChange={handleChange} label="Name" name="name"  placeholder="Your Name" />
                   <FormInput value={email} onChange={handleChange} label="Email" name="email"  placeholder="your@email.com" />
-                  <FormInput value={username} onChange={handleChange} label="Username" name="username"  placeholder="Unique Username" />
+                  {/* <FormInput value={type} onChange={handleChange} label="Type" name="type"  placeholder="student" /> */}
+                  <div className="mb-3 mx-2">
+                  <Selector
+                    options={typeOptions}
+                    value={type}
+                    label="Type of Account"
+                    onChange={handleChange}
+                    name="type" 
+                    className=" "
+                  />
+                  </div>
                   <FormInput value={password} onChange={handleChange} type='password' label="Password" name="password"  placeholder="********" />
                   <div className="text-danger text-center">{message}</div>
                   <Submit value="Sign Up"></Submit>

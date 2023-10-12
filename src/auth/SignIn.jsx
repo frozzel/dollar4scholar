@@ -27,7 +27,6 @@ const validateUserInfo = ({ email, password }) => {
 
 export default function SignIn() {
   const [message, setMessage] = useState("");
-
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -89,7 +88,7 @@ export default function SignIn() {
           <FormInput  value={userInfo.email} onChange={handleChange} label="Email" name="email"  placeholder="your@email.com" />
           <FormInput value={userInfo.password} onChange={handleChange}  label="Password" name="password" type="password"  placeholder="********" />
           <div className="text-danger text-center">{message}</div>
-          <Submit value="Sign In" busy={isPending}></Submit>
+          <Submit value="Sign In" busy={isPending} ></Submit>
           <div className="d-flex justify-content-around align-items-center pb-2">
             <CustomLink to="/auth/forget-password">Forgot Password</CustomLink>
             <CustomLink to="/auth/SignUp">Sign Up</CustomLink>

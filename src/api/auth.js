@@ -3,10 +3,12 @@ import { catchError } from "../utils/helper.jsx";
 
 
 export const createUser = async (userInfo) => {
+  
   try {
     const { data } = await client.post("/user/create", userInfo);
     return data;
   } catch (error) {
+    console.log('error: ',error);
     const { response } = error;
     if (response?.data) return response.data;
 

@@ -56,29 +56,29 @@ const WorkProcessSection = () => {
           <p>This powerball is open for College and University student Country wide. With access to an edu adminsitered email address you are qualified to win the weekly pot. The pot submissions will be sorted through and pulled weekly for a winner. Keep an eye out for your emails! You may have the luck of the draw.</p>
         </div>
 
-        <div class="row content">
-          <div class="col-md-5" data-aos="fade-right">
-            <img src={lsu} class="img-fluid" alt=""/>
+        <div className="row content">
+          <div className="col-md-5" data-aos="fade-right">
+            <img src={lsu} className="img-fluid" alt=""/>
           </div>
-          <div class="col-md-7 pt-4" data-aos="fade-left">
-            <p class="fst-italic">
+          <div className="col-md-7 pt-4" data-aos="fade-left">
+            <div className="fst-italic">
                 <h3>Enter Student Email</h3>
               <ul>
-                <li><i class="bx bx-check-double"></i> The email address must be from an accredited College or University ending in .edu to be accepted into the drawing.</li>
-                <li><i class="bx bx-check-double"></i> Participants must be enrolled in an Accredited College or University</li>
-                <li><i class="bx bx-check-double"></i> Participants must have access to this email address</li>
+                <li><i className="bx bx-check-double"></i> The email address must be from an accredited College or University ending in .edu to be accepted into the drawing.</li>
+                <li><i className="bx bx-check-double"></i> Participants must be enrolled in an Accredited College or University</li>
+                <li><i className="bx bx-check-double"></i> Participants must have access to this email address</li>
               </ul>
-            </p>
+            </div>
           </div>
         </div>
 
-        <div class="row content">
-          <div class="col-md-5 order-1 order-md-2" data-aos="fade-left">
-            <img src={columbia} class="img-fluid" alt=""/>
+        <div className="row content">
+          <div className="col-md-5 order-1 order-md-2" data-aos="fade-left">
+            <img src={columbia} className="img-fluid" alt=""/>
           </div>
-          <div class="col-md-7 pt-5 order-2 order-md-1" data-aos="fade-right">
+          <div className="col-md-7 pt-5 order-2 order-md-1" data-aos="fade-right">
             <h3>Create Student Profile</h3>
-            <p class="fst-italic">
+            <p className="fst-italic">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
               magna aliqua.
             </p>
@@ -90,37 +90,37 @@ const WorkProcessSection = () => {
           </div>
         </div>
 
-        <div class="row content">
-          <div class="col-md-5" data-aos="fade-right">
-            <img src={mh} class="img-fluid" alt=""/>
+        <div className="row content">
+          <div className="col-md-5" data-aos="fade-right">
+            <img src={mh} className="img-fluid" alt=""/>
           </div>
-          <div class="col-md-7 pt-5" data-aos="fade-left">
+          <div className="col-md-7 pt-5" data-aos="fade-left">
             <h3>Enter to win!!!</h3>
             <ul>
-              <li><i class="bi bi-check"></i> Test your luck at the Drawing</li>
-              <li><i class="bi bi-check"></i> Enter your Dollar you Scholar</li>
-              <li><i class="bi bi-check"></i> Wait for an email confirmation of your submission.</li>
+              <li><i className="bi bi-check"></i> Test your luck at the Drawing</li>
+              <li><i className="bi bi-check"></i> Enter your Dollar you Scholar</li>
+              <li><i className="bi bi-check"></i> Wait for an email confirmation of your submission.</li>
             </ul>
           </div>
         </div>
 
-        <div class="row content">
-          <div class="col-md-5 order-1 order-md-2" data-aos="fade-left">
-            <img src={cau} class="img-fluid" alt=""/>
+        <div className="row content">
+          <div className="col-md-5 order-1 order-md-2" data-aos="fade-left">
+            <img src={cau} className="img-fluid" alt=""/>
           </div>
-          <div class="col-md-7 pt-5 order-2 order-md-1" data-aos="fade-right">
+          <div className="col-md-7 pt-5 order-2 order-md-1" data-aos="fade-right">
             <h3>Check for the Winner</h3>
-            <p class="fst-italic">
+            <p className="fst-italic">
               The Winner will appear on the site every Sunday at 12 noon! 
             </p>
             <p>
                 <ul>
-                    <li><i class="bx bx-check-double"></i> Check your email to see if you were this weeks lucky winner</li>
-                    <li><i class="bx bx-check-double"></i> Congratulations to our Winner!!!</li>
-                    <li><i class="bx bx-check-double"></i> If you were not this weeks lucky winner, try your hand for next week!!!</li>
-                    <li><i class="bx bx-check-double"></i> Check-out our scholarship page for govenment funded scholarships!</li>
-                    <li><i class="bx bx-check-double"></i> Lets Find a Way or Make one for your academic aspirations to become reality</li>
-                    <li><i class="bx bx-check-double"></i> The only way to lose is to stop trying, Try Again! </li>
+                    <li><i className="bx bx-check-double"></i> Check your email to see if you were this weeks lucky winner</li>
+                    <li><i className="bx bx-check-double"></i> Congratulations to our Winner!!!</li>
+                    <li><i className="bx bx-check-double"></i> If you were not this weeks lucky winner, try your hand for next week!!!</li>
+                    <li><i className="bx bx-check-double"></i> Check-out our scholarship page for govenment funded scholarships!</li>
+                    <li><i className="bx bx-check-double"></i> Lets Find a Way or Make one for your academic aspirations to become reality</li>
+                    <li><i className="bx bx-check-double"></i> The only way to lose is to stop trying, Try Again! </li>
                   </ul>
                   <h3>You Got This!!!</h3>
             </p>
@@ -156,8 +156,8 @@ const ClientsSection = () => {
               <h2>Our Clients</h2>
               <p>Accredited Institutions we Partner with</p>
             </div>
-            <div class="clients-slider swiper">
-          <div class="swiper-wrapper align-items-center">
+            <div className="clients-slider swiper">
+          <div className="swiper-wrapper align-items-center">
             <Swiper
               spaceBetween={150}
               slidesPerView={6}
