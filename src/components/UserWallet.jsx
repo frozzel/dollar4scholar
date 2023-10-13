@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { updateUser } from "../api/user";
+import { updateUserWallet } from "../api/user";
 import { useNotification } from "../hooks";
-import UserForm from "../form/UserForm";
+import WalletForm from "../form/WalletForm";
 import ModalContainer from "./ModalContainer";
 
 
-export default function UpdateActor({
+export default function UserWallet({
   visible,
   initialState,
   onSuccess,
@@ -17,20 +17,19 @@ export default function UpdateActor({
 
   const handleSubmit = async (data) => {
     setBusy(true);
-    const { error, actor } = await updateUser(initialState.id, data);
+    const { error, wallet } = await updateUserWallet(initialState.id, data);
     setBusy(false);
     if (error) return updateNotification("error", error);
-    onSuccess(actor);
-    updateNotification("success", "User updated successfully.");
+    onSuccess(wallet);
+    updateNotification("success", "User wallet updated successfully.");
     onClose();
   };
-  
 
   return (
     <ModalContainer visible={visible} onClose={onClose} ignoreContainer>
-      <UserForm
+      <WalletForm
         onSubmit={!busy ? handleSubmit : null}
-        title="Update User"
+        title="Wallet"
         btnTitle="Update"
         busy={busy}
         initialState={initialState}

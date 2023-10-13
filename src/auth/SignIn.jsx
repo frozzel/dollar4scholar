@@ -50,16 +50,13 @@ export default function SignIn() {
     const {ok, error}  = validateUserInfo(userInfo);
     if(!ok) return updateNotification("error", error)
     handleLogin(userInfo.email, userInfo.password);
-    // setMessage(notification)
+
 
   }
   useEffect(() => {
     setMessage(notification)
   } , [notification])
 
-  // useEffect(() => {
-  //   if(isLoggedIn) navigate('/');
-  // }, [isLoggedIn, navigate])
 
   useEffect(() => {
     AOS.init({duration: 2000, once: true});

@@ -27,7 +27,7 @@ export default function AuthProvider({ children }) {
       return setAuthInfo({ ...authInfo, isPending: false, error });
     }
 
-    navigate('/Dashboard', {replace: true});
+    navigate(`/dashboard/${user.id}`, {replace: true});
     
     setAuthInfo({
       profile: { ...user },
@@ -35,6 +35,7 @@ export default function AuthProvider({ children }) {
       isLoggedIn: true,
       error: "",
     });
+    
 
     localStorage.setItem("auth-token", user.token);
   };
