@@ -3,10 +3,13 @@ import { Button } from 'react-bootstrap';
 import PureCounter from "@srexi/purecounterjs";
 import { useAuth } from "../hooks";
 import NotVerified from '../components/NotVerified';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useNotification } from "../hooks";
 import { getProfile } from "../api/user";
 import UserUpload from "../components/UserUpload";
+import UserWallet from '../components/UserWallet';
+import AOS from 'aos';
+
 
 
 const Breadcrumbs = () => {
@@ -30,6 +33,7 @@ const Breadcrumbs = () => {
   };
 
 const Dashboard = () => {
+
     const [user, setUser] = useState({});
     const [message, setMessage] = useState("");
     const { authInfo } = useAuth();
@@ -40,7 +44,9 @@ const Dashboard = () => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const {notification} = useNotification();
-    const navigate = useNavigate();
+    const [showWalletModal, setShowWalletModal] = useState(false);
+    const [walletState, setWallet] = useState(null);
+    
 
     const fetchProfile = async () => {
         const { error, user } = await getProfile(userId);
@@ -63,12 +69,38 @@ const Dashboard = () => {
             major,
           avatar,
         });
-        
+  
         setShowEditModal(true);
       };
       const hideEditModal = () => {
         setShowEditModal(false);
         setSelectedUser(null);
+      };
+
+      //add wallet funds on click
+      const handleOnEditClickWallet = () => {
+        const { id, name, wallet} = user;
+        setWallet({
+          id,
+          name,
+          wallet,
+        })
+        setShowWalletModal(true);
+      };
+
+      const hideWalletModal = () => {
+        setShowWalletModal(false);
+        setWallet(null);
+      };
+
+      //update wallet funds on finish
+      const handleOnWalletUpdate = (updatedWallet) => {
+        setUser(prevUser => {
+          return {
+            ...prevUser,
+            wallet: updatedWallet
+          };
+        });
       };
   
       const handleOnUserUpdate = (user) => {
@@ -86,7 +118,7 @@ const Dashboard = () => {
         };
     
         setUser({ ...updatedUser });
-    ;
+    
       };
 
     useEffect(() => {
@@ -97,7 +129,11 @@ const Dashboard = () => {
         setMessage(notification)
     } , [notification])
 
-    
+    useEffect(() => {
+      AOS.init({duration: 1000, once: true});
+     
+    }
+      , []);
 
 
     if (!isLoggedIn) {
@@ -135,7 +171,7 @@ const Dashboard = () => {
 
     <Breadcrumbs />
    <section style={{ backgroundColor: '#eee' }}>
-      <div className="container py-5">
+      <div className="container py-5" data-aos="fade-up">
         <div className="row">
           <div className="col">
             <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 mb-4">
@@ -177,7 +213,7 @@ const Dashboard = () => {
                     <p className="" style={{color: "#94c045", fontSize: 32}}>${wallet}</p>
                   </li>
                   <li className=" d-flex justify-content-between align-items-center px-2">
-                  <Button className="getstarted2 " variant="outline-*">Add Funds</Button>
+                  <Button onClick={handleOnEditClickWallet} className="getstarted2 " variant="outline-*">Add Funds</Button>
                     </li>
  
                 </ul>
@@ -294,6 +330,13 @@ const Dashboard = () => {
           
         </div>
       </div>
+    {/* //wallet modal */}
+    <UserWallet
+        visible={showWalletModal}
+        initialState={walletState}
+        onSuccess={handleOnWalletUpdate}
+        onClose={hideWalletModal}
+      />
 
       <UserUpload
         visible={showEditModal}

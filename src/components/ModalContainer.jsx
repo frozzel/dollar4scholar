@@ -1,4 +1,6 @@
 import React from "react";
+import AOS from "aos";
+import { useEffect } from "react";
 
 export default function ModalContainer({
   visible,
@@ -22,6 +24,8 @@ export default function ModalContainer({
   };
 
   if (!visible) return null;
+
+ 
   return (
     
 <div
@@ -39,6 +43,7 @@ export default function ModalContainer({
     zIndex: 3050, // Equivalent to z-50
     marginTop: "70px"
   }}
+  data-aos="slide-down"
 >
   {renderChildren()}
 </div>
