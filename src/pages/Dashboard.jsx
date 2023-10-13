@@ -6,10 +6,7 @@ import NotVerified from '../components/NotVerified';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useNotification } from "../hooks";
 import { getProfile } from "../api/user";
-
-
-
-
+import UserUpload from "../components/UserUpload";
 
 
 const Breadcrumbs = () => {
@@ -44,8 +41,6 @@ const Dashboard = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const {notification} = useNotification();
     const navigate = useNavigate();
-    const test = authInfo.profile?.following?.includes(userId);
-    const [following, setFollowing] = useState(test);
 
     const fetchProfile = async () => {
         const { error, user } = await getProfile(userId);
@@ -54,6 +49,45 @@ const Dashboard = () => {
           setUser(user);
           
     };
+
+    const handleOnEditClick = () => {
+        const { id, name, phone, address, birth, school, major, avatar} = user;
+        
+        setSelectedUser({
+          id,
+          name,
+          phone,
+          address,
+            birth,
+            school,
+            major,
+          avatar,
+        });
+        
+        setShowEditModal(true);
+      };
+      const hideEditModal = () => {
+        setShowEditModal(false);
+        setSelectedUser(null);
+      };
+  
+      const handleOnUserUpdate = (user) => {
+        const updatedUser = {
+          ...user,
+          name: user.name,
+          phone: user.phone,
+            address: user.address,
+            birth: user.birth,
+            school: user.school,
+            major: user.major,
+
+          avatar: user.avatar,
+          
+        };
+    
+        setUser({ ...updatedUser });
+    ;
+      };
 
     useEffect(() => {
         if (userId)fetchProfile() && window.scrollTo(0, 0);
@@ -90,7 +124,7 @@ const Dashboard = () => {
         );
     }
 
-    const { name, avatar,  major, address, email, phone, birth, school, wallet, type} = user;
+    const { name, avatar,  major, address, email, phone, birth, school, wallet} = user;
     
     
 
@@ -129,7 +163,7 @@ const Dashboard = () => {
                 <p className="text-muted mb-1">{major}</p>
                 <p className="text-muted mb-4">{address}</p>
                 <div className="d-flex justify-content-center mb-2 ">
-                  <Button type="button" className="getstarted2 " variant="outline-*" style={{textDecoration: 'none', outline: "none"}}>Edit</Button>
+                  <Button onClick={handleOnEditClick} type="button" className="getstarted2 " variant="outline-*" style={{textDecoration: 'none', outline: "none"}}>Edit</Button>
                 </div>
               </div>
             </div>
@@ -260,6 +294,13 @@ const Dashboard = () => {
           
         </div>
       </div>
+
+      <UserUpload
+        visible={showEditModal}
+        initialState={selectedUser}
+        onSuccess={handleOnUserUpdate}
+        onClose={hideEditModal}
+      />
     </section>
     </main>
   );
