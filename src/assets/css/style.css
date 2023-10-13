@@ -63,6 +63,34 @@ background: #eee;
   color: white
 } */
 
+/* Bootstrap Equivalent for commonModalClasses */
+.commonModalClasses {
+  background-color: #ffffff; /* bg-white */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+  border-radius: 0.375rem; /* rounded */
+  padding: 1.5rem; /* p-6 */
+  margin-bottom: 1.5rem; /* space-y-6 */
+}
+
+/* Bootstrap Equivalent for commonInputClasses */
+.commonInputClasses {
+  width: 100%; /* w-full */
+  background-color: transparent; /* bg-transparent */
+  outline: none; /* outline-none */
+  border: 1px solid #dee2e6; /* dark:border-dark-subtle (Bootstrap doesn't have a direct equivalent for this) */
+  border: 1px solid rgba(0, 0, 0, 0.125); /* border-light-subtle */
+  color: #000000; /* dark:text-white (assuming dark mode text color) */
+}
+
+.commonInputClasses:focus {
+  border-color: #007bff; /* focus:border-primary */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Bootstrap's default focus shadow */
+}
+
+
+
+
+
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
