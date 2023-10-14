@@ -28,6 +28,22 @@ export const updateUser = async (userId, userData) => {
       return catchError(error);
     }
   };
+// update donor profile
+export const updateDonor = async (userId, userData) => {
+    const token = getToken();
+    try {
+      const { data } = await client.put(`/user/donor/${userId}`, userData, {
+        headers: {
+          authorization: "Bearer " + token,
+        },
+      });
+      return data;
+    } catch (error) {
+      return catchError(error);
+    }
+  };
+
+
 // path to update user wallet
 export const updateUserWallet = async (userId, userData) => {
   
