@@ -6,10 +6,10 @@ import NotVerified from '../components/NotVerified';
 import { useParams } from 'react-router-dom';
 import { useNotification } from "../hooks";
 import { getProfile } from "../api/user";
-import UserUpload from "../components/UserUpload";
+import UserUploadDonor from "../components/UserUploadDonor";
 import UserWallet from '../components/UserWallet';
 import AOS from 'aos';
-import DonorDashboard from './DonorDash';
+import logo from '../assets/img/clients/client-1.png';
 
 
 
@@ -33,7 +33,7 @@ const Breadcrumbs = () => {
     );
   };
 
-const Dashboard = () => {
+const DonorDashboard = () => {
 
     const [user, setUser] = useState({});
     const [message, setMessage] = useState("");
@@ -58,16 +58,13 @@ const Dashboard = () => {
     };
 
     const handleOnEditClick = () => {
-        const { id, name, phone, address, birth, school, major, avatar} = user;
+        const { id, name, address, phone, avatar} = user;
         
         setSelectedUser({
           id,
           name,
-          phone,
           address,
-            birth,
-            school,
-            major,
+          phone,
           avatar,
         });
   
@@ -104,22 +101,18 @@ const Dashboard = () => {
         });
       };
   
-      const handleOnUserUpdate = (user) => {
-        const updatedUser = {
-          ...user,
-          name: user.name,
-          phone: user.phone,
-          address: user.address,
-          birth: user.birth,
-          school: user.school,
-          major: user.major,
-          avatar: user.avatar,
+      const handleOnUserUpdate = (updatedUser) => {
+        const updatedFields = {
+          name: updatedUser.name,
+          address: updatedUser.address,
+          avatar: updatedUser.avatar,
+          phone: updatedUser.phone,
         };
       
         setUser(prevUser => {
           return {
             ...prevUser,
-            ...updatedUser,
+            ...updatedFields,
           };
         });
       };
@@ -163,16 +156,11 @@ const Dashboard = () => {
         );
     }
 
-  const { name, avatar,  major, address, email, phone, birth, school, wallet} = user;
+  const { name, avatar, address, phone, wallet} = user;
     
-    
-
-  //check and see if user is student or not
-  if (user.type === "student") {
+  
   return (
     <main id="main">
-                  <div className="text-danger text-center">{message}</div>
-
     <Breadcrumbs />
    <section style={{ backgroundColor: '#eee' }}>
       <div className="container py-5" data-aos="fade-up">
@@ -184,25 +172,26 @@ const Dashboard = () => {
                 <li className="breadcrumb-item active"><a aria-current="page">Dashboard</a></li>
                 
               </ol>
+              
             </nav>
           </div>
         </div>
-
+        <div className="text-danger text-center">{message}</div>
         <div className="row">
           <div className="col-lg-4">
             <div className="card mb-4">
-              <div className="card-body text-center">
+              <div className="card-body text-center" >
                 {avatar ? (
-                    <img src={avatar} alt={name} className="rounded-circle img-fluid mx-auto" style={{ width: '150px' }} />
+                    <img src={avatar} alt={name} className="rounded-rectangle img-fluid mx-auto" style={{  width: "250px", objectFit: 'cover' }} />
                 ) :(
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" className="rounded-circle img-fluid mx-auto" style={{ width: '150px' }} />
+                    <img src={logo} alt="avatar" className="rounded-rectangle img-fluid mx-auto" style={{ width: '250px', objectFit: 'cover' }} />
 
                 )
                 }
-                <h5 className="my-3">{name}</h5>
-                <p className="text-muted mb-1">{major}</p>
-                <p className="text-muted mb-4">{address}</p>
-                <div className="d-flex justify-content-center mb-2 ">
+                <h5 className="mt-3 mb-1">{name}</h5>
+                <p className="text-muted mb-1">{phone}</p>
+                <p className="text-muted mb-1">{address}</p>
+                <div className="d-flex justify-content-center mb-0">
                   <Button onClick={handleOnEditClick} type="button" className="getstarted2 " variant="outline-*" style={{textDecoration: 'none', outline: "none"}}>Edit</Button>
                 </div>
               </div>
@@ -225,7 +214,8 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="col-lg-8">
-            <div className="card mb-4">
+            
+            {/* <div className="card mb-4">
               <div className="card-body">
                 <div className="row">
                   <div className="col-sm-3">
@@ -281,7 +271,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             
             <div className="row">
               <div className="col-lg-12">
@@ -297,7 +287,7 @@ const Dashboard = () => {
                                 <div className="col-lg-4 col-md-5 col-6 text-center">
                                 <div className="count-box py-4 text-center">
                                     <i className="bi bi-coin text-center"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
+                                    <span data-purecounter-start="0" data-purecounter-end="16625" className="purecounter"  data-purecounter-separator="," >0</span>
                                     <p>This Weeks Pot</p>
                                 </div>
                                 </div>
@@ -316,19 +306,20 @@ const Dashboard = () => {
                                 </div>
                                 </div>
                                 <div className=" text-center mb-2">
-                                    <Button className="getstarted2" variant="outline-*">Buy In</Button>
+                                    <Button className="getstarted2" variant="outline-*">Donate</Button>
                                 </div>
                                 {/* Add more count boxes as needed */}
                             </div>
                             </div>
                         </div>
                         </div>
+                        
                     </section>
                     
                   </div>
                 </div>
               </div>
-              
+              <StatisticsSection />
             </div>
           </div>
           
@@ -342,7 +333,7 @@ const Dashboard = () => {
         onClose={hideWalletModal}
       />
 
-      <UserUpload
+      <UserUploadDonor
         visible={showEditModal}
         initialState={selectedUser}
         onSuccess={handleOnUserUpdate}
@@ -351,18 +342,113 @@ const Dashboard = () => {
     </section>
     </main>
   );
-  } 
-//check if user is a donor
-if (user.type === "donor") {
+
+
+
+
+}
+
+
+const StatisticsSection = () => {
   return (
-    <DonorDashboard />  
+    <div className="container-fluid">
+      <section>
+        <div className="row">
+        </div>
+        <div className="row">
+          <div className="col-xl-6 col-md-12 mb-4">
+            <div className="card">
+              <div className="card-body">
+                <div className="d-flex justify-content-between p-md-1">
+                  <div className="d-flex flex-row">
+                    <div className="align-self-center">
+                      <i className="bi bi-coin me-4" style={{fontSize: "35px", color: "#94c045"}}></i>
+                    </div>
+                    <div>
+                      <h4>Donation</h4>
+                      <p className="mb-0">Pot Date 9/12-9/17</p>
+                    </div>
+                  </div>
+                  <div className="align-self-center">
+                    <h2 className="h1 mb-0">$500.00</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
 
-  )
+          <div className="col-xl-6 col-md-12 mb-4">
+            <div className="card">
+              <div className="card-body">
+                <div className="d-flex justify-content-between p-md-1">
+                  <div className="d-flex flex-row">
+                    <div className="align-self-center">
+                      <i className="bi bi-coin me-4" style={{fontSize: "35px", color: "#94c045"}}></i>
+                    </div>
+                    <div>
+                      <h4>Donation</h4>
+                      <p className="mb-0">Pot Date 9/12-9/17</p>
+                    </div>
+                  </div>
+                  <div className="align-self-center">
+                    <h2 className="h1 mb-0">$500.00</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+          <div className="col-xl-6 col-md-12 mb-4">
+            <div className="card">
+              <div className="card-body">
+                <div className="d-flex justify-content-between p-md-1">
+                  <div className="d-flex flex-row">
+                    <div className="align-self-center">
+                      <i className="bi bi-coin me-4" style={{fontSize: "35px", color: "#94c045"}}></i>
+                    </div>
+                    <div>
+                      <h4>Donation</h4>
+                      <p className="mb-0">Pot Date 9/12-9/17</p>
+                    </div>
+                  </div>
+                  <div className="align-self-center">
+                    <h2 className="h1 mb-0">$500.00</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+          <div className="col-xl-6 col-md-12 mb-4">
+            <div className="card">
+              <div className="card-body">
+                <div className="d-flex justify-content-between p-md-1">
+                  <div className="d-flex flex-row">
+                    <div className="align-self-center">
+                      <i className="bi bi-coin me-4" style={{fontSize: "35px", color: "#94c045"}}></i>
+                    </div>
+                    <div>
+                      <h4>Donation</h4>
+                      <p className="mb-0">Pot Date 9/12-9/17</p>
+                    </div>
+                  </div>
+                  <div className="align-self-center">
+                    <h2 className="h1 mb-0">$500.00</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
 }
 
 
 
-}
 
-
-export default Dashboard;
+export default DonorDashboard;
