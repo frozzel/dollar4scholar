@@ -10,6 +10,7 @@ import UserUploadDonor from "../components/UserUploadDonor";
 import UserWallet from '../components/UserWallet';
 import AOS from 'aos';
 import logo from '../assets/img/clients/client-1.png';
+import UserDonate from '../components/UserDonate';
 
 
 
@@ -47,14 +48,16 @@ const DonorDashboard = () => {
     const {notification} = useNotification();
     const [showWalletModal, setShowWalletModal] = useState(false);
     const [walletState, setWallet] = useState(null);
-    
+    const [contribution, setContribution] = useState([]);
+    const [showDonateModal, setShowDonateModal] = useState(false);
+    const [donateState, setDonate] = useState(null);
+  
 
     const fetchProfile = async () => {
         const { error, user } = await getProfile(userId);
           if (error) return updateNotification("error", error);
-  
+          setContribution(...user.contribution);
           setUser(user);
-          
     };
 
     const handleOnEditClick = () => {
@@ -73,6 +76,21 @@ const DonorDashboard = () => {
       const hideEditModal = () => {
         setShowEditModal(false);
         setSelectedUser(null);
+      };
+      //add donate funds on click
+      const handleOnDonateClick = () => {
+        const { id, name, amount, wallet} = user;
+        setDonate({
+          id,
+          name,
+          amount,
+          wallet,
+        })
+        setShowDonateModal(true);
+      };
+      const hideDonateModal = () => {
+        setShowDonateModal(false);
+        setDonate(null);
       };
 
       //add wallet funds on click
@@ -117,6 +135,17 @@ const DonorDashboard = () => {
         });
       };
 
+      // handle on donate update
+      const handleOnDonateUpdate = (updatedDonate) => {
+        setUser(prevUser => {
+          return {
+            ...prevUser,
+            wallet: updatedDonate
+          };
+        });
+      };
+
+
     useEffect(() => {
         if (userId)fetchProfile() && window.scrollTo(0, 0);
     }, [userId]);
@@ -136,6 +165,8 @@ const DonorDashboard = () => {
         return (
             <main id="main">
           <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+          <div className="text-danger text-center">{message}</div>
+
             <p className="text-muted">
               Please Login
             </p>
@@ -148,21 +179,26 @@ const DonorDashboard = () => {
             <main id="main">
                 <NotVerified />
             <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+            <div className="text-danger text-center">{message}</div>
+
                 <p className="text-muted">
-                    Please Verify your account
+                    Please Verify your account or Log back in
                 </p>
             </div>
             </main>
         );
     }
 
-  const { name, avatar, address, phone, wallet} = user;
-    
-  
+  const { name, avatar, address, phone, wallet } = user;
+
+
+
+
+
   return (
     <main id="main">
     <Breadcrumbs />
-   <section style={{ backgroundColor: '#eee' }}>
+   <section style={{ backgroundColor: '#eee', paddingBottom: '0' }}>
       <div className="container py-5" data-aos="fade-up">
         <div className="row">
           <div className="col">
@@ -215,63 +251,6 @@ const DonorDashboard = () => {
           </div>
           <div className="col-lg-8">
             
-            {/* <div className="card mb-4">
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-sm-3">
-                    <p className="mb-0">Full Name</p>
-                  </div>
-                  <div className="col-sm-9">
-                    <p className="text-muted mb-0">{name}</p>
-                  </div>
-                </div>
-                <hr />
-                <div className="row">
-                  <div className="col-sm-3">
-                    <p className="mb-0">Email</p>
-                  </div>
-                  <div className="col-sm-9">
-                    <p className="text-muted mb-0">{email}</p>
-                  </div>
-                </div>
-                <hr />
-                <div className="row">
-                  <div className="col-sm-3">
-                    <p className="mb-0">Phone</p>
-                  </div>
-                  <div className="col-sm-9">
-                    <p className="text-muted mb-0">{phone}</p>
-                  </div>
-                </div>
-                <hr />
-                <div className="row">
-                  <div className="col-sm-3">
-                    <p className="mb-0">Birth date</p>
-                  </div>
-                  <div className="col-sm-9">
-                    <p className="text-muted mb-0">{birth}</p>
-                  </div>
-                </div>
-                <hr />
-                <div className="row">
-                  <div className="col-sm-3">
-                    <p className="mb-0">Home Town</p>
-                  </div>
-                  <div className="col-sm-9">
-                    <p className="text-muted mb-0">{address}</p>
-                  </div>
-                </div>
-                <hr />
-                <div className="row">
-                  <div className="col-sm-3">
-                    <p className="mb-0">School Attending</p>
-                  </div>
-                  <div className="col-sm-9">
-                    <p className="text-muted mb-0">{school}</p>
-                  </div>
-                </div>
-              </div>
-            </div> */}
             
             <div className="row">
               <div className="col-lg-12">
@@ -306,7 +285,7 @@ const DonorDashboard = () => {
                                 </div>
                                 </div>
                                 <div className=" text-center mb-2">
-                                    <Button className="getstarted2" variant="outline-*">Donate</Button>
+                                    <Button onClick={handleOnDonateClick} className="getstarted2" variant="outline-*">Donate</Button>
                                 </div>
                                 {/* Add more count boxes as needed */}
                             </div>
@@ -319,7 +298,21 @@ const DonorDashboard = () => {
                   </div>
                 </div>
               </div>
-              <StatisticsSection />
+              {/* <StatisticsSection /> */}
+              <div className="container-fluid">
+      <section>
+        <div className="row">
+          {contribution.map((c, index ) => (
+            <CardComponent
+              key={index}
+              amount={c.amount}
+              date={c.date}
+            />
+          ))}
+        </div>
+      </section>
+    </div>
+
             </div>
           </div>
           
@@ -339,6 +332,12 @@ const DonorDashboard = () => {
         onSuccess={handleOnUserUpdate}
         onClose={hideEditModal}
       />
+          <UserDonate
+        visible={showDonateModal}
+        initialState={donateState}
+        onSuccess={handleOnDonateUpdate}
+        onClose={hideDonateModal}
+      />
     </section>
     </main>
   );
@@ -349,104 +348,34 @@ const DonorDashboard = () => {
 }
 
 
-const StatisticsSection = () => {
+const CardComponent = ({ amount, date }) => {
+  // Convert date to desired format
+  const formattedDate = new Date(date).toLocaleDateString();
+
   return (
-    <div className="container-fluid">
-      <section>
-        <div className="row">
-        </div>
-        <div className="row">
-          <div className="col-xl-6 col-md-12 mb-4">
-            <div className="card">
-              <div className="card-body">
-                <div className="d-flex justify-content-between p-md-1">
-                  <div className="d-flex flex-row">
-                    <div className="align-self-center">
-                      <i className="bi bi-coin me-4" style={{fontSize: "35px", color: "#94c045"}}></i>
-                    </div>
-                    <div>
-                      <h4>Donation</h4>
-                      <p className="mb-0">Pot Date 9/12-9/17</p>
-                    </div>
-                  </div>
-                  <div className="align-self-center">
-                    <h2 className="h1 mb-0">$500.00</h2>
-                  </div>
-                </div>
+    <div className="col-xl-6 col-md-12 mb-4">
+      <div className="card">
+        <div className="card-body">
+          <div className="d-flex justify-content-between p-md-1">
+            <div className="d-flex flex-row">
+              <div className="align-self-center">
+                <i className="bi bi-coin me-4" style={{ fontSize: "35px", color: "#94c045" }}></i>
+              </div>
+              <div>
+                <h4>Donation</h4>
+                <p className="mb-0">{formattedDate}</p> {/* Use the formatted date here */}
               </div>
             </div>
-            
-          </div>
-
-          <div className="col-xl-6 col-md-12 mb-4">
-            <div className="card">
-              <div className="card-body">
-                <div className="d-flex justify-content-between p-md-1">
-                  <div className="d-flex flex-row">
-                    <div className="align-self-center">
-                      <i className="bi bi-coin me-4" style={{fontSize: "35px", color: "#94c045"}}></i>
-                    </div>
-                    <div>
-                      <h4>Donation</h4>
-                      <p className="mb-0">Pot Date 9/12-9/17</p>
-                    </div>
-                  </div>
-                  <div className="align-self-center">
-                    <h2 className="h1 mb-0">$500.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-
-          <div className="col-xl-6 col-md-12 mb-4">
-            <div className="card">
-              <div className="card-body">
-                <div className="d-flex justify-content-between p-md-1">
-                  <div className="d-flex flex-row">
-                    <div className="align-self-center">
-                      <i className="bi bi-coin me-4" style={{fontSize: "35px", color: "#94c045"}}></i>
-                    </div>
-                    <div>
-                      <h4>Donation</h4>
-                      <p className="mb-0">Pot Date 9/12-9/17</p>
-                    </div>
-                  </div>
-                  <div className="align-self-center">
-                    <h2 className="h1 mb-0">$500.00</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-
-          <div className="col-xl-6 col-md-12 mb-4">
-            <div className="card">
-              <div className="card-body">
-                <div className="d-flex justify-content-between p-md-1">
-                  <div className="d-flex flex-row">
-                    <div className="align-self-center">
-                      <i className="bi bi-coin me-4" style={{fontSize: "35px", color: "#94c045"}}></i>
-                    </div>
-                    <div>
-                      <h4>Donation</h4>
-                      <p className="mb-0">Pot Date 9/12-9/17</p>
-                    </div>
-                  </div>
-                  <div className="align-self-center">
-                    <h2 className="h1 mb-0">$500.00</h2>
-                  </div>
-                </div>
-              </div>
+            <div className="align-self-center">
+              <h2 className="h1 mb-0">{amount}</h2>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
-}
+};
+
 
 
 
