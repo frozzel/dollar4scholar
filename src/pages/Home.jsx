@@ -6,8 +6,9 @@ import NotVerified from '../components/NotVerified.jsx';
 
 
 
-export default function Home() {
 
+export default function Home() {
+  
   const { notification } = useNotification();
   return (<>
      <NotVerified />
