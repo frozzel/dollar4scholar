@@ -11,6 +11,7 @@ import UserWallet from '../components/UserWallet';
 import AOS from 'aos';
 import DonorDashboard from './DonorDash';
 import Counter from '../components/Counter';
+import UserBuyIn from '../components/UserBuyIn';
 
 
 
@@ -44,7 +45,9 @@ const Dashboard = () => {
     const {notification} = useNotification();
     const [showWalletModal, setShowWalletModal] = useState(false);
     const [walletState, setWallet] = useState(null);
-    console.log(pot)
+    const [showBuyInModal, setShowBuyInModal] = useState(false);
+    const [buyInState, setBuyIn] = useState(null);
+    
 
     const fetchProfile = async () => {
         const { error, user } = await getProfile(userId);
@@ -81,6 +84,20 @@ const Dashboard = () => {
       const hideEditModal = () => {
         setShowEditModal(false);
         setSelectedUser(null);
+      };
+      //add buy in funds on click
+      const handleOnBuyInClick = () => {
+        const { id, name, wallet} = user;
+        setBuyIn({
+          id,
+          name,
+          wallet,
+        })
+        setShowBuyInModal(true);
+      };
+      const hideBuyInModal = () => {
+        setShowBuyInModal(false);
+        setBuyIn(null);
       };
 
       //add wallet funds on click
@@ -128,6 +145,15 @@ const Dashboard = () => {
           };
         });
       };
+
+    const handleOnBuyInUpdate = (updatedBuyIn) => {
+      setUser(prevUser => {
+        return {
+          ...prevUser,
+          wallet: updatedBuyIn
+        };
+      });
+    };
 
     useEffect(() => {
         if (userId)fetchProfile() && window.scrollTo(0, 0);
@@ -300,9 +326,9 @@ const Dashboard = () => {
                     <section id="about" className="about justify-content-between "  style={{padding: 0}}>
                       <Counter size={"col-lg-12"} pot={pot} />
   
-                          <div className=" text-center mb-2">
-                                    <Button className="getstarted2" variant="outline-*">Buy In</Button>
-                                </div>
+                        <div className=" text-center mb-2">
+                            <Button onClick={handleOnBuyInClick} className="getstarted2" variant="outline-*">Buy In</Button>
+                        </div>
                     </section>
                     
                   </div>
@@ -327,6 +353,13 @@ const Dashboard = () => {
         initialState={selectedUser}
         onSuccess={handleOnUserUpdate}
         onClose={hideEditModal}
+      />
+      {/* buy in modal */}
+      <UserBuyIn
+        visible={showBuyInModal}
+        initialState={buyInState}
+        onSuccess={handleOnBuyInUpdate}
+        onClose={hideBuyInModal}
       />
     </section>
     </main>

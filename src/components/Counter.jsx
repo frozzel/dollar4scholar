@@ -5,7 +5,7 @@ const CountdownTimer = ({size, pot}) => {
   const targetDay = 0; // 0 represents Sunday
   const targetHour = 16; // 12pm //change for daylight savings
   const targetMinute = 0; // 0 minutes
-  console.log(pot)
+  
   let targetDate = new Date();
   targetDate.setHours(targetHour, targetMinute, 0, 0);
   targetDate.setMinutes(targetDate.getMinutes() - targetDate.getTimezoneOffset());
