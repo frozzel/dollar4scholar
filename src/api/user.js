@@ -59,3 +59,19 @@ export const updateUserWallet = async (userId, userData) => {
       return catchError(error);
     }
   };
+
+// path to donate to pot
+export const donateToPot = async (userId, userData) => {
+
+    const token = getToken();
+    try {
+      const { data } = await client.post(`/scholarship/donate/${userId}`, userData, {
+        headers: {
+          authorization: "Bearer " + token,
+        },
+      });
+      return data;
+    } catch (error) {
+      return catchError(error);
+    }
+  };

@@ -5,10 +5,9 @@ import { Button } from "react-bootstrap";
 const defaultUserInfo = {
   name: "",
   wallet: "",
-  amount: "",
 };
 
-export default function WalletForm({
+export default function DonateForm({
   title,
   initialState,
   btnTitle,
@@ -29,6 +28,17 @@ export default function WalletForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+      // Check if wallet value is empty
+  if (!userInfo.wallet.trim()) {
+    alert("Please enter a donation amount.");
+    return; // Stop the submission process
+  }
+  if(userInfo.wallet > initialState.wallet){
+    alert("Please enter a donation amount less than your current wallet balance.");
+    return; // Stop the submission process
+  }
+
 
     const formData = new FormData();
     for (let key in userInfo) {

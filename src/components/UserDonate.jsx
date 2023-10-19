@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { updateUserWallet } from "../api/user";
+import { donateToPot } from "../api/scholarship";
 import { useNotification } from "../hooks";
 import DonateForm from "../form/DonateForm";
 import ModalContainer from "./ModalContainer";
 
 
-export default function UserWallet({
+export default function UserDonate({
   visible,
   initialState,
   onSuccess,
@@ -17,11 +17,11 @@ export default function UserWallet({
 
   const handleSubmit = async (data) => {
     setBusy(true);
-    const { error, wallet } = await updateUserWallet(initialState.id, data);
+    const { error, message,  wallet, contributions } = await donateToPot(initialState.id, data);
     setBusy(false);
     if (error) return updateNotification("error", error);
-    onSuccess(wallet);
-    updateNotification("success", "User wallet updated successfully.");
+    onSuccess(wallet, contributions);
+    updateNotification("success", message);
     onClose();
   };
 

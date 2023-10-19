@@ -19,6 +19,7 @@ SwiperCore.use([Pagination]);
 
 
 const Breadcrumbs = () => {
+  
   return (
     <section id="breadcrumbs" className="breadcrumbs">
       <div className="breadcrumb-hero">
