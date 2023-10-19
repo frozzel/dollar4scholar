@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import { getCurrentPot } from '../api/scholarship';
 import { Button } from 'react-bootstrap';
-// import PureCounter from "@srexi/purecounterjs";
 import { useAuth } from "../hooks";
 import NotVerified from '../components/NotVerified';
 import { useParams } from 'react-router-dom';
@@ -11,14 +11,10 @@ import UserWallet from '../components/UserWallet';
 import AOS from 'aos';
 import DonorDashboard from './DonorDash';
 import Counter from '../components/Counter';
-import { getCurrentPot } from '../api/scholarship';
 
 
 
 const Breadcrumbs = () => {
-    // useEffect(() => {
-    //     new PureCounter()
-    //    }, [])
 
     return (
       <section id="breadcrumbs" className="breadcrumbs">
@@ -48,7 +44,7 @@ const Dashboard = () => {
     const {notification} = useNotification();
     const [showWalletModal, setShowWalletModal] = useState(false);
     const [walletState, setWallet] = useState(null);
-    
+    console.log(pot)
 
     const fetchProfile = async () => {
         const { error, user } = await getProfile(userId);
@@ -59,11 +55,11 @@ const Dashboard = () => {
     };
 
       // get current pot amount
-  const fetchPot = async () => {
-    const {error, scholarship} = await getCurrentPot();
-    if (error) return updateNotification("error", error);
+    const fetchPot = async () => {
+      const {error, scholarship} = await getCurrentPot();
+      if (error) return updateNotification("error", error);
     
-    setPot(scholarship.pot);
+      setPot(scholarship.pot);
     };
 
     const handleOnEditClick = () => {
@@ -302,7 +298,7 @@ const Dashboard = () => {
                     <h5 className="text-center "> Current Pot Status</h5>
                     
                     <section id="about" className="about justify-content-between "  style={{padding: 0}}>
-                      <Counter size={"col-lg-12"} pot={pot}/>
+                      <Counter size={"col-lg-12"} pot={pot} />
   
                           <div className=" text-center mb-2">
                                     <Button className="getstarted2" variant="outline-*">Buy In</Button>

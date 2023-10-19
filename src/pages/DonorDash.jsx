@@ -16,11 +16,6 @@ import Counter from '../components/Counter';
 
 
 const Breadcrumbs = () => {
-    // useEffect(() => {
-    //     new PureCounter()
-    
-    //    }, [])
-
     return (
       <section id="breadcrumbs" className="breadcrumbs">
         <div className="breadcrumb-hero">
