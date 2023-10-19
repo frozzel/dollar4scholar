@@ -1,33 +1,18 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import  videoPlaceHolder from '../../assets/img/webpic.png'
 import GLightbox from 'glightbox';
-import Counter from '../../components/Counter';
+import Counter2 from '../../components/Counter2.jsx';
 import { Container } from 'react-bootstrap';
-import { getCurrentPot } from '../../api/scholarship';
+
 import AOS from 'aos';
 
 
-export default function About() {
-  const [pot, setPot] = useState({});
-
-  // get current pot amount
-  const fetchPot = async () => {
-    const {error, scholarship} = await getCurrentPot();
-    if (error) return updateNotification("error", error);
-    
-    setPot(scholarship.pot);
-  };
-
+export default function About({pot}) {
   useEffect(() => {
-    AOS.init({duration: 2000, once: false});
+    AOS.init({duration: 1000, once: true});
    
   }
     , []);
-
-  useEffect(() => {
-    fetchPot();
-  }, []);
-
 
   useEffect(() => {
       GLightbox();
@@ -35,9 +20,9 @@ export default function About() {
 
   return ( <>
 
-<section id="about" className="about justify-content-between "  style={{paddingBottom: "4rem"}}>
+<section id="about" className="about justify-content-between " data-aos="fade-up" data-aos-delay="400" style={{paddingBottom: "4rem"}}>
     <Container className="container " >
-      <Counter size={"col-lg-6"} pot={pot} />
+    <Counter2 size={"col-lg-6"}  />
 
       <div className="row">
         <div className="col-lg-6 video-box align-self-baseline position-relative">

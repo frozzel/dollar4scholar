@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import './App.css'
-import ContextProviders from "./context";
 import Header from './components/Header'
 import Home from './pages/Home'
 import Footer from "./components/Footer";
@@ -22,6 +21,7 @@ import Dashboard from "./pages/Dashboard";
 
 
 function App() {
+
   return (<>
      <Header />
       <Routes>
@@ -34,7 +34,7 @@ function App() {
         <Route path='/auth/reset-password' element={<ConfirmPassword/>} />
         <Route path='/Collegesnuniversities' element={<Collegesnuniversities/>} />
         <Route path='/Investors' element={<Investors/>} />
-        <Route path='/About' element={<About/>} />
+        <Route path='/About' element={<About />} />
         <Route path='/Donor' element={<Donor/>} />
         <Route path='/Student' element={<Student/>} />
         <Route path='/Contact' element={<Contact/>} />

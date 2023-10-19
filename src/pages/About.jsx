@@ -179,11 +179,11 @@ const ClientsSection = () => {
     );
   };
 
-const About = () => {
+const About = ({pot}) => {
   return (
     <main id="main">
       <Breadcrumbs />
-      <AboutSection />
+      <AboutSection pot={pot}/>
       <WorkProcessSection />
       <ClientsSection />
     </main>

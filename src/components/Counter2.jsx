@@ -1,11 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import PureCounter from "@srexi/purecounterjs";
+import { getCurrentPot } from '../api/scholarship';
 
-const CountdownTimer = ({size, pot}) => {
+
+const CountdownTimer = ({size}) => {
+    const [pot, setPot] = useState();
+    // get current pot amount
+    const fetchPot = async () => {
+      const {error, scholarship} = await getCurrentPot();
+      if (error) return updateNotification("error", error);
+      
+      if (scholarship.pot !== undefined || pot !== 0) {
+        setPot(scholarship.pot.toLocaleString('en-US'));
+    };
+    
+    }
+    useEffect( () => {
+         fetchPot();
+    }, [pot])
+
   const targetDay = 0; // 0 represents Sunday
   const targetHour = 16; // 12pm //change for daylight savings
   const targetMinute = 0; // 0 minutes
-  console.log(pot)
+ 
   let targetDate = new Date();
   targetDate.setHours(targetHour, targetMinute, 0, 0);
   targetDate.setMinutes(targetDate.getMinutes() - targetDate.getTimezoneOffset());
@@ -48,10 +65,11 @@ const CountdownTimer = ({size, pot}) => {
         , [])
 
 
-  
+//   if (pot === undefined || pot === 0) return (<>Loading...</>) 
+//   else 
   return (
     <div>
-      {timeLeft.days > 0 ? (<>
+      { timeLeft.days > 0 ? (<>
                             {/* <section id="about" className="about justify-content-between "  style={{padding: 0}}> */}
                             <div className=" justify-content-between " >
                             <div className="row justify-content-center" >
@@ -60,8 +78,9 @@ const CountdownTimer = ({size, pot}) => {
                                     <div className="col-lg-4 col-md-5 col-6 text-center">
                                     <div className="count-box py-4 text-center">
                                         <i className="bi bi-coin text-center"></i>
-                                        <span  data-purecounter-separator="true" data-purecounter-start="0" data-purecounter-end={pot} className="purecounter">0</span>
-                                        <p>This Weeks Pot</p>
+                                        <span>{pot}</span>
+                            
+                                                                                <p>This Weeks Pot</p>
                                     </div>
                                     </div>
                                     <div className="col-lg-4 col-md-5 col-6 text-center">
@@ -97,8 +116,7 @@ const CountdownTimer = ({size, pot}) => {
                 <div className="col-lg-4 col-md-5 col-6 text-center">
                 <div className="count-box py-4 text-center">
                     <i className="bi bi-coin text-center"></i>
-                    <span data-purecounter-start="0" data-purecounter-end={pot} className="purecounter">0</span>
-                    <p>This Weeks Pot</p>
+                    <span>{pot}</span>                    <p>This Weeks Pot</p>
                 </div>
                 </div>
                 <div className="col-lg-4 col-md-5 col-6 text-center">
@@ -125,7 +143,9 @@ const CountdownTimer = ({size, pot}) => {
       )}
     </div>
     
-  );
-};
+  )
+    
+  
+}; 
 
 export default CountdownTimer;
