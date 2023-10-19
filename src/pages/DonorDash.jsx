@@ -22,7 +22,7 @@ const Breadcrumbs = () => {
           <div className="container">
             <div className="breadcrumb-hero">
               <h2>Dashboard</h2>
-              {/* <p>Contact Us</p> */}
+              <p>Student</p>
             </div>
           </div>
         </div>
@@ -31,7 +31,6 @@ const Breadcrumbs = () => {
   };
 
 const DonorDashboard = ({pot}) => {
-
     const [user, setUser] = useState({});
     const [message, setMessage] = useState("");
     const { authInfo } = useAuth();
@@ -258,39 +257,7 @@ const DonorDashboard = ({pot}) => {
                     
                     <section id="about" className="about justify-content-between "  style={{padding: 0}}>
                       <Counter size={"col-lg-12"} pot={pot}/>
-                        {/* <div className=" justify-content-between " >
-                        <div className="row justify-content-center" >
-                            <div className="col-lg-12">
-                            <div className="row justify-content-center" >
-                                <div className="col-lg-4 col-md-5 col-6 text-center">
-                                <div className="count-box py-4 text-center">
-                                    <i className="bi bi-coin text-center"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="16625" className="purecounter"  data-purecounter-separator="," >0</span>
-                                    <p>This Weeks Pot</p>
-                                </div>
-                                </div>
-                                <div className="col-lg-4 col-md-5 col-6 text-center">
-                                <div className="count-box py-4 text-center">
-                                    <i className="bi bi-clock text-center"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
-                                    <p>Time left to enter</p>
-                                </div>
-                                </div>
-                                <div className="col-lg-4 col-md-5 col-6 text-center">
-                                <div className="count-box py-4 text-center">
-                                    <i className="bi bi-journal-richtext text-center"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
-                                    <p>Countdown</p>
-                                </div>
-                                </div>
-                                <div className=" text-center mb-2">
-                                    <Button onClick={handleOnDonateClick} className="getstarted2" variant="outline-*">Donate</Button>
-                                </div>
-                                
-                            </div>
-                            </div>
-                        </div>
-                        </div> */}
+                     
                                 <div className=" text-center mb-2">
                                     <Button onClick={handleOnDonateClick} className="getstarted2" variant="outline-*">Donate</Button>
                                 </div>

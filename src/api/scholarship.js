@@ -27,3 +27,18 @@ export const getCurrentPot = async () => {
     return catchError(error);
   }
 };
+
+// path to buy ticket
+export const buyTicket = async (userId, userData) => {
+  const token = getToken();
+  try {
+    const { data } = await client.post(`/scholarship/enter/${userId}`, userData, {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    });
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
