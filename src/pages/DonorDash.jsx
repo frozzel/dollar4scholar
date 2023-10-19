@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Button } from 'react-bootstrap';
-import PureCounter from "@srexi/purecounterjs";
+// import PureCounter from "@srexi/purecounterjs";
 import { useAuth } from "../hooks";
 import NotVerified from '../components/NotVerified';
 import { useParams } from 'react-router-dom';
@@ -11,14 +11,15 @@ import UserWallet from '../components/UserWallet';
 import AOS from 'aos';
 import logo from '../assets/img/clients/client-1.png';
 import UserDonate from '../components/UserDonate';
+import Counter from '../components/Counter';
 
 
 
 const Breadcrumbs = () => {
-    useEffect(() => {
-        new PureCounter()
+    // useEffect(() => {
+    //     new PureCounter()
     
-       }, [])
+    //    }, [])
 
     return (
       <section id="breadcrumbs" className="breadcrumbs">
@@ -34,7 +35,7 @@ const Breadcrumbs = () => {
     );
   };
 
-const DonorDashboard = () => {
+const DonorDashboard = ({pot}) => {
 
     const [user, setUser] = useState({});
     const [message, setMessage] = useState("");
@@ -79,11 +80,10 @@ const DonorDashboard = () => {
       };
       //add donate funds on click
       const handleOnDonateClick = () => {
-        const { id, name, amount, wallet} = user;
+        const { id, name, wallet} = user;
         setDonate({
           id,
           name,
-          amount,
           wallet,
         })
         setShowDonateModal(true);
@@ -111,10 +111,11 @@ const DonorDashboard = () => {
 
       //update wallet funds on finish
       const handleOnWalletUpdate = (updatedWallet) => {
+        
         setUser(prevUser => {
           return {
             ...prevUser,
-            wallet: updatedWallet
+            wallet: updatedWallet,
           };
         });
       };
@@ -136,13 +137,15 @@ const DonorDashboard = () => {
       };
 
       // handle on donate update
-      const handleOnDonateUpdate = (updatedDonate) => {
+      const handleOnDonateUpdate = (updatedDonate, contributions) => {
         setUser(prevUser => {
           return {
             ...prevUser,
-            wallet: updatedDonate
+            wallet: updatedDonate,
+            contribution: [...prevUser.contribution, contributions]
           };
         });
+        setContribution([...contribution, contributions])
       };
 
 
@@ -259,7 +262,8 @@ const DonorDashboard = () => {
                     <h5 className="text-center "> Current Pot Status</h5>
                     
                     <section id="about" className="about justify-content-between "  style={{padding: 0}}>
-                        <div className=" justify-content-between " >
+                      <Counter size={"col-lg-12"} pot={pot}/>
+                        {/* <div className=" justify-content-between " >
                         <div className="row justify-content-center" >
                             <div className="col-lg-12">
                             <div className="row justify-content-center" >
@@ -287,11 +291,14 @@ const DonorDashboard = () => {
                                 <div className=" text-center mb-2">
                                     <Button onClick={handleOnDonateClick} className="getstarted2" variant="outline-*">Donate</Button>
                                 </div>
-                                {/* Add more count boxes as needed */}
+                                
                             </div>
                             </div>
                         </div>
-                        </div>
+                        </div> */}
+                                <div className=" text-center mb-2">
+                                    <Button onClick={handleOnDonateClick} className="getstarted2" variant="outline-*">Donate</Button>
+                                </div>
                         
                     </section>
                     

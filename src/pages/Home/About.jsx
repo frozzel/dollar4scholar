@@ -1,48 +1,43 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import  videoPlaceHolder from '../../assets/img/webpic.png'
-import PureCounter from "@srexi/purecounterjs";
 import GLightbox from 'glightbox';
+import Counter from '../../components/Counter';
+import { Container } from 'react-bootstrap';
+import { getCurrentPot } from '../../api/scholarship';
+import AOS from 'aos';
+
 
 export default function About() {
-  useEffect(() => {
-   new PureCounter(),
-    GLightbox();
-  }, [])
+  const [pot, setPot] = useState({});
 
+  // get current pot amount
+  const fetchPot = async () => {
+    const {error, scholarship} = await getCurrentPot();
+    if (error) return updateNotification("error", error);
     
-    // const pot = 65;
+    setPot(scholarship.pot);
+  };
+
+  useEffect(() => {
+    AOS.init({duration: 2000, once: false});
+   
+  }
+    , []);
+
+  useEffect(() => {
+    fetchPot();
+  }, []);
+
+
+  useEffect(() => {
+      GLightbox();
+    }, [])
+
   return ( <>
 
-    <section id="about" className="about">
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-lg-6">
-          <div className="row justify-content-center">
-            <div className="col-lg-4 col-md-5 col-6 ">
-              <div className="count-box py-5">
-                <i className="bi bi-coin"></i>
-                <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
-                <p>This Weeks Pot</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-5 col-6 ">
-              <div className="count-box py-5">
-                <i className="bi bi-clock"></i>
-                <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
-                <p>Time left to enter</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-5 col-6 ">
-              <div className="count-box py-5">
-                <i className="bi bi-journal-richtext"></i>
-                <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
-                <p>Countdown</p>
-              </div>
-            </div>
-            {/* Add more count boxes as needed */}
-          </div>
-        </div>
-      </div>
+<section id="about" className="about justify-content-between "  style={{paddingBottom: "4rem"}}>
+    <Container className="container " >
+      <Counter size={"col-lg-6"} pot={pot} />
 
       <div className="row">
         <div className="col-lg-6 video-box align-self-baseline position-relative">
@@ -69,7 +64,7 @@ export default function About() {
           </p>
         </div>
       </div>
-    </div>
+    </Container>
   </section>
   </>
 

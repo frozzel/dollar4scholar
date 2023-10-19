@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Button } from 'react-bootstrap';
-import PureCounter from "@srexi/purecounterjs";
+// import PureCounter from "@srexi/purecounterjs";
 import { useAuth } from "../hooks";
 import NotVerified from '../components/NotVerified';
 import { useParams } from 'react-router-dom';
@@ -10,14 +10,15 @@ import UserUpload from "../components/UserUpload";
 import UserWallet from '../components/UserWallet';
 import AOS from 'aos';
 import DonorDashboard from './DonorDash';
+import Counter from '../components/Counter';
+import { getCurrentPot } from '../api/scholarship';
 
 
 
 const Breadcrumbs = () => {
-    useEffect(() => {
-        new PureCounter()
-    
-       }, [])
+    // useEffect(() => {
+    //     new PureCounter()
+    //    }, [])
 
     return (
       <section id="breadcrumbs" className="breadcrumbs">
@@ -34,7 +35,7 @@ const Breadcrumbs = () => {
   };
 
 const Dashboard = () => {
-
+    const [pot, setPot] = useState({});
     const [user, setUser] = useState({});
     const [message, setMessage] = useState("");
     const { authInfo } = useAuth();
@@ -55,6 +56,14 @@ const Dashboard = () => {
   
           setUser(user);
           
+    };
+
+      // get current pot amount
+  const fetchPot = async () => {
+    const {error, scholarship} = await getCurrentPot();
+    if (error) return updateNotification("error", error);
+    
+    setPot(scholarship.pot);
     };
 
     const handleOnEditClick = () => {
@@ -138,6 +147,10 @@ const Dashboard = () => {
     }
       , []);
 
+    useEffect(() => {
+        fetchPot();
+      }, []);
+    
 
     if (!isLoggedIn) {
         return (
@@ -156,8 +169,7 @@ const Dashboard = () => {
                 <NotVerified />
             <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
                 <p className="text-muted">
-                    Please Verify your account
-                </p>
+                Please Verify your account or Log back in</p>
             </div>
             </main>
         );
@@ -290,39 +302,11 @@ const Dashboard = () => {
                     <h5 className="text-center "> Current Pot Status</h5>
                     
                     <section id="about" className="about justify-content-between "  style={{padding: 0}}>
-                        <div className=" justify-content-between " >
-                        <div className="row justify-content-center" >
-                            <div className="col-lg-12">
-                            <div className="row justify-content-center" >
-                                <div className="col-lg-4 col-md-5 col-6 text-center">
-                                <div className="count-box py-4 text-center">
-                                    <i className="bi bi-coin text-center"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
-                                    <p>This Weeks Pot</p>
-                                </div>
-                                </div>
-                                <div className="col-lg-4 col-md-5 col-6 text-center">
-                                <div className="count-box py-4 text-center">
-                                    <i className="bi bi-clock text-center"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
-                                    <p>Time left to enter</p>
-                                </div>
-                                </div>
-                                <div className="col-lg-4 col-md-5 col-6 text-center">
-                                <div className="count-box py-4 text-center">
-                                    <i className="bi bi-journal-richtext text-center"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="65" className="purecounter">0</span>
-                                    <p>Countdown</p>
-                                </div>
-                                </div>
-                                <div className=" text-center mb-2">
+                      <Counter size={"col-lg-12"} pot={pot}/>
+  
+                          <div className=" text-center mb-2">
                                     <Button className="getstarted2" variant="outline-*">Buy In</Button>
                                 </div>
-                                {/* Add more count boxes as needed */}
-                            </div>
-                            </div>
-                        </div>
-                        </div>
                     </section>
                     
                   </div>
@@ -355,7 +339,7 @@ const Dashboard = () => {
 //check if user is a donor
 if (user.type === "donor") {
   return (
-    <DonorDashboard />  
+    <DonorDashboard pot={pot}/>  
 
   )
 }

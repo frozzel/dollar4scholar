@@ -2,17 +2,11 @@ import React, { useState } from "react";
 
 import { NotificationContext } from "./NotificationContext";
 
-// export const NotificationContext = React.createContext();
-
 let timeoutId;
 export default function NotificationProvider({ children }) {
   const [notification, setNotification] = useState("");
   const [classes, setClasses] = useState("");
-  // console.log("notification", notification);
-  // console.log("classes", classes);
   const updateNotification = (type, value) => {
-    // console.log("type", type);
-    // console.log("value", value);
     if (timeoutId) clearTimeout(timeoutId);
 
     switch (type) {
