@@ -42,3 +42,14 @@ export const buyTicket = async (userId, userData) => {
     return catchError(error);
   }
 };
+
+// path to get donations
+export const getDonations = async () => {
+  try {
+    const { data } = await client.get(`/scholarship/donations`);
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
+

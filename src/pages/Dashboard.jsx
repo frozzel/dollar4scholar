@@ -12,6 +12,7 @@ import AOS from 'aos';
 import DonorDashboard from './DonorDash';
 import Counter from '../components/Counter';
 import UserBuyIn from '../components/UserBuyIn';
+import AdminDash from './AdminDash';
 
 
 
@@ -56,7 +57,7 @@ const Dashboard = () => {
           setUser(user);
           
     };
-
+   
       // get current pot amount
     const fetchPot = async () => {
       const {error, scholarship} = await getCurrentPot();
@@ -370,6 +371,11 @@ if (user.type === "donor") {
   return (
     <DonorDashboard pot={pot}/>  
 
+  )
+}
+if (user.type === "admin") {
+  return (
+      <AdminDash pot={pot}/>
   )
 }
 

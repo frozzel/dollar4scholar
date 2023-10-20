@@ -20,7 +20,7 @@ export default function About({pot}) {
 
   return ( <>
 
-<section id="about" className="about justify-content-between " data-aos="fade-up" data-aos-delay="400" style={{paddingBottom: "4rem"}}>
+<section id="about" className="about justify-content-between " data-aos="fade-up" data-aos-delay="400" style={{paddingBottom: "4rem" }} >
     <Container className="container " >
     <Counter2 size={"col-lg-6"}  />
 

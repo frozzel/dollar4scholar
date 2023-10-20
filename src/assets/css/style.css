@@ -87,6 +87,39 @@ background: #eee;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Bootstrap's default focus shadow */
 }
 
+.member-info {
+  display: flex;
+  flex-direction: column;
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.amount-text {
+  color: #94c045;
+  font-size: 1.2rem; /* Adjust the font size as needed */
+  
+}
+
+.date-text {
+  text-align: right;
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.phone {
+  flex-grow: 1;
+}
+
+.date {
+  text-align: right;
+}
+
+
 
 
 
