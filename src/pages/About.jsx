@@ -50,7 +50,7 @@ const WorkProcessSection = () => {
     , []);
 
   return (
-    <section id="work-process" className="work-process">
+    <section id="work-process" className="work-process" >
       <div className="container">
         <div className="section-title" data-aos="fade-right">
           <h2>Work Process</h2>
@@ -181,7 +181,7 @@ const ClientsSection = () => {
 
 const About = ({pot}) => {
   return (
-    <main id="main">
+    <main id="main" >
       <Breadcrumbs />
       <AboutSection pot={pot}/>
       <WorkProcessSection />

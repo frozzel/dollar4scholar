@@ -22,7 +22,7 @@ const Breadcrumbs = () => {
           <div className="container">
             <div className="breadcrumb-hero">
               <h2>Dashboard</h2>
-              <p>Student</p>
+              {/* <p>Donor</p> */}
             </div>
           </div>
         </div>

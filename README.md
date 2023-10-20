@@ -10,3 +10,5 @@ Currently, two official plugins are available:
 404 attr: <a href="https://www.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_8030430.htm#query=404%20page%20found&position=3&from_view=keyword&track=ais">Image by storyset</a> on Freepik
 
 <a href="https://www.freepik.com/free-vector/forgot-password-concept-illustration_7070628.htm#query=forgot%20password&position=0&from_view=keyword&track=ais">Image by storyset</a> on Freepik
+
+Image by <a href="https://www.freepik.com/free-vector/flat-customer-support-illustration_13184991.htm#query=admin&position=7&from_view=search&track=sph">Freepik</a>

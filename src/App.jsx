@@ -17,10 +17,13 @@ import Donor from "./pages/Donor";
 import Student from "./pages/Student";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
+import DonorSpotLight from "./pages/DonorSpotLight";
+
 
 
 
 function App() {
+ 
 
   return (<>
      <Header />
@@ -39,6 +42,7 @@ function App() {
         <Route path='/Student' element={<Student/>} />
         <Route path='/Contact' element={<Contact/>} />
         <Route path='/Dashboard/:userId' element={<Dashboard/>} />
+        <Route path='/DonorSpotLight' element={<DonorSpotLight/>} />
       </Routes>
     <Footer />
    

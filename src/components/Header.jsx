@@ -34,7 +34,7 @@ export default function Header() {
               <NavDropdown.Item href="/student">For Students</NavDropdown.Item>
             </NavDropdown> */}
             <Nav.Link href="/about">How It Works</Nav.Link>
-            <Nav.Link href="#">Donor Spotlight</Nav.Link>
+            <Nav.Link href="/DonorSpotLight">Donor Spotlight</Nav.Link>
             <Nav.Link href="/contact">Contact Us</Nav.Link>
             {isLoggedIn ? (<>
             <Nav.Link className='' href={"/dashboard/"+ profile?.id} >Dashboard</Nav.Link>
