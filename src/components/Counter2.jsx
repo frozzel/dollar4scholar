@@ -4,7 +4,7 @@ import { getCurrentPot } from '../api/scholarship';
 
 
 const CountdownTimer = ({size}) => {
-    const [pot, setPot] = useState();
+    const [pot, setPot] = useState(0);
     // get current pot amount
     const fetchPot = async () => {
       const {error, scholarship} = await getCurrentPot();
@@ -19,37 +19,29 @@ const CountdownTimer = ({size}) => {
          fetchPot();
     }, [pot])
 
-  const targetDay = 0; // 0 represents Sunday
-  const targetHour = 16; // 12pm //change for daylight savings
-  const targetMinute = 0; // 0 minutes
- 
-  let targetDate = new Date();
-  targetDate.setHours(targetHour, targetMinute, 0, 0);
-  targetDate.setMinutes(targetDate.getMinutes() - targetDate.getTimezoneOffset());
-  targetDate.setDate(targetDate.getDate() + ((targetDay + 7 - targetDate.getDay()) % 7));
+    const targetTime = new Date();
+  targetTime.setUTCHours(15, 49, 0, 0); // Set target time to 11:49 EST
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const calculateTimeLeft = () => {
+    const now = new Date();
+    let difference = targetTime - now;
 
-  function calculateTimeLeft() {
-    const difference = targetDate - new Date();
-    let timeLeft = {};
-
-    if (difference > 0) {
-      timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-      };
-    } else {
-      timeLeft = {
-        days: 0,
-        hours: 0,
-        minutes: 0,
-      };
+    if (difference < 0) {
+      difference += 7 * 24 * 60 * 60 * 1000; // Add a week if the target time has passed
     }
 
-    return timeLeft;
-  }
+    let days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+
+    return {
+      days,
+      hours,
+      minutes
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,6 +50,15 @@ const CountdownTimer = ({size}) => {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const now = new Date();
+    const daysUntilSunday = 7 - now.getUTCDay(); // Days until next Sunday
+    const timeUntilReset = (daysUntilSunday * 24 * 60 * 60 * 1000) + (11 * 60 * 60 * 1000) + (49 * 60 * 1000); // Time until next Sunday 11:49 EST
+    setTimeout(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, timeUntilReset);
+  }, [timeLeft]);
 
   useEffect(() => {
         new PureCounter();
@@ -78,7 +79,9 @@ const CountdownTimer = ({size}) => {
                                     <div className="col-lg-4 col-md-5 col-6 text-center">
                                     <div className="count-box py-4 text-center">
                                         <i className="bi bi-coin text-center"></i>
-                                        <span>{pot}</span>
+                                        <span data-purecounter-start="0" data-purecounter-end={pot} className="purecounter">0</span>
+
+                                        {/* <span>{pot}</span> */}
                             
                                                                                 <p>This Weeks Pot</p>
                                     </div>
@@ -116,7 +119,9 @@ const CountdownTimer = ({size}) => {
                 <div className="col-lg-4 col-md-5 col-6 text-center">
                 <div className="count-box py-4 text-center">
                     <i className="bi bi-coin text-center"></i>
-                    <span>{pot}</span>                    <p>This Weeks Pot</p>
+                    <span data-purecounter-start="0" data-purecounter-end={pot} className="purecounter">0</span>
+                    {/* <span>{pot}</span>                     */}
+                    <p>This Weeks Pot</p>
                 </div>
                 </div>
                 <div className="col-lg-4 col-md-5 col-6 text-center">
