@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PureCounter from "@srexi/purecounterjs";
 
-const CountdownTimer = ({ size, pot }) => {
- 
-  const targetTime = new Date();
-  targetTime.setUTCHours(15, 49, 0, 0); // Set target time to 11:49 EST
 
+const CountdownTimer = ({ size, pot, date }) => {
+  
   const calculateTimeLeft = () => {
     const now = new Date();
+    const targetTime = new Date(date);
+
     let difference = targetTime - now;
 
     if (difference < 0) {
@@ -26,7 +26,6 @@ const CountdownTimer = ({ size, pot }) => {
   };
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
@@ -42,10 +41,11 @@ const CountdownTimer = ({ size, pot }) => {
     setTimeout(() => {
       setTimeLeft(calculateTimeLeft());
     }, timeUntilReset);
+    new PureCounter()
   }, [timeLeft]);
 
   useEffect(() => {
-    new PureCounter();
+    ;
   }, []);
 
   return (

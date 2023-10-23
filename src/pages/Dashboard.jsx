@@ -34,6 +34,7 @@ const Breadcrumbs = () => {
 
 const Dashboard = () => {
     const [pot, setPot] = useState({});
+    const [date, setDate] = useState({});
     const [user, setUser] = useState({});
     const [message, setMessage] = useState("");
     const { authInfo } = useAuth();
@@ -49,6 +50,7 @@ const Dashboard = () => {
     const [showBuyInModal, setShowBuyInModal] = useState(false);
     const [buyInState, setBuyIn] = useState(null);
     
+    
 
     const fetchProfile = async () => {
         const { error, user } = await getProfile(userId);
@@ -62,7 +64,10 @@ const Dashboard = () => {
     const fetchPot = async () => {
       const {error, scholarship} = await getCurrentPot();
       if (error) return updateNotification("error", error);
-    
+      const dateStarted = new Date(scholarship.dateStarted); // Convert to valid date format
+
+    // setPot(scholarship.pot);
+      setDate(dateStarted);
       setPot(scholarship.pot);
     };
 
@@ -325,7 +330,7 @@ const Dashboard = () => {
                     <h5 className="text-center "> Current Pot Status</h5>
                     
                     <section id="about" className="about justify-content-between "  style={{padding: 0}}>
-                      <Counter size={"col-lg-12"} pot={pot} />
+                      <Counter size={"col-lg-12"} pot={pot} date={date} />
   
                         <div className=" text-center mb-2">
                             <Button onClick={handleOnBuyInClick} className="getstarted2" variant="outline-*">Buy In</Button>
@@ -369,13 +374,13 @@ const Dashboard = () => {
 //check if user is a donor
 if (user.type === "donor") {
   return (
-    <DonorDashboard pot={pot}/>  
+    <DonorDashboard pot={pot} date={date}/>  
 
   )
 }
 if (user.type === "admin") {
   return (
-      <AdminDash pot={pot}/>
+      <AdminDash pot={pot} date={date}/>
   )
 }
 

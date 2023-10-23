@@ -1,13 +1,16 @@
 import {useEffect} from 'react';
 import  videoPlaceHolder from '../../assets/img/webpic.png'
 import GLightbox from 'glightbox';
-import Counter2 from '../../components/Counter2.jsx';
+import CountdownTimer from '../../components/Counter.jsx';
 import { Container } from 'react-bootstrap';
-
 import AOS from 'aos';
 
 
-export default function About({pot}) {
+export default function About({pot, date}) {
+  console.log("pot about home", pot)
+  console.log("date about home", date)
+
+
   useEffect(() => {
     AOS.init({duration: 1000, once: true});
    
@@ -18,11 +21,13 @@ export default function About({pot}) {
       GLightbox();
     }, [])
 
+    console.log("date about", date)
+
   return ( <>
 
 <section id="about" className="about justify-content-between " data-aos="fade-up" data-aos-delay="400" style={{paddingBottom: "4rem" }} >
     <Container className="container " >
-    <Counter2 size={"col-lg-6"}  />
+    <CountdownTimer size={"col-lg-6"} pot={pot} date={date}  />
 
       <div className="row">
         <div className="col-lg-6 video-box align-self-baseline position-relative">

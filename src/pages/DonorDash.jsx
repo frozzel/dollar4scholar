@@ -30,7 +30,7 @@ const Breadcrumbs = () => {
     );
   };
 
-const DonorDashboard = ({pot}) => {
+const DonorDashboard = ({pot, date}) => {
     const [user, setUser] = useState({});
     const [message, setMessage] = useState("");
     const { authInfo } = useAuth();
@@ -256,7 +256,7 @@ const DonorDashboard = ({pot}) => {
                     <h5 className="text-center "> Current Pot Status</h5>
                     
                     <section id="about" className="about justify-content-between "  style={{padding: 0}}>
-                      <Counter size={"col-lg-12"} pot={pot}/>
+                      <Counter size={"col-lg-12"} pot={pot} date={date}/>
                      
                                 <div className=" text-center mb-2">
                                     <Button onClick={handleOnDonateClick} className="getstarted2" variant="outline-*">Donate</Button>
