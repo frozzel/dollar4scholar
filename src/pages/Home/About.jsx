@@ -13,9 +13,7 @@ export default function About({pot, date}) {
 
   useEffect(() => {
     AOS.init({duration: 1000, once: true});
-   
-  }
-    , []);
+  }, []);
 
   useEffect(() => {
       GLightbox();
