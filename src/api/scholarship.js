@@ -53,3 +53,12 @@ export const getDonations = async () => {
   }
 };
 
+// path to get winner
+export const getWinner = async () => {
+  try {
+    const { data } = await client.get(`/scholarship/winner`);
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};

@@ -41,11 +41,11 @@ const CountdownTimer = ({ size, pot, date }) => {
     setTimeout(() => {
       setTimeLeft(calculateTimeLeft());
     }, timeUntilReset);
-    new PureCounter()
+    
   }, [timeLeft]);
 
   useEffect(() => {
-    ;
+    new PureCounter();
   }, []);
 
   return (

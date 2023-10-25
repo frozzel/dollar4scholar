@@ -3,7 +3,7 @@ import PureCounter from "@srexi/purecounterjs";
 
 
 const CountdownTimer2 = ({size, date, pot}) => {
-  console.log("timmer date", date)
+  
   const calculateTimeLeft = () => {
     const now = new Date();
     const targetTime = new Date(date);
@@ -43,11 +43,14 @@ const CountdownTimer2 = ({size, date, pot}) => {
       setTimeLeft(calculateTimeLeft());
     }, timeUntilReset);
   }, [timeLeft]);
+  
 
   useEffect(() => {
+    if(isNaN(timeLeft.days)) {
+    return;
+    };
     new PureCounter();
-  }, []);
- console.log("timeLeft c2", timeLeft)
+  }, [timeLeft]);
 
   return (
     <div>
@@ -70,16 +73,16 @@ const CountdownTimer2 = ({size, date, pot}) => {
                                     <div className="col-lg-4 col-md-5 col-6 text-center">
                                     <div className="count-box py-4 text-center">
                                         <i className="bi bi-clock text-center"></i>
-                                        {/* <span data-purecounter-start="0" data-purecounter-end={timeLeft.days} className="purecounter">0</span> */}
-                                        <span>{timeLeft.days}</span>
+                                        <span data-purecounter-start="0" data-purecounter-end={timeLeft.days} className="purecounter">0</span>
+                                        {/* <span>{timeLeft.days}</span> */}
                                         <p>Days Remaining</p>
                                     </div>
                                     </div>
                                     <div className="col-lg-4 col-md-5 col-6 text-center">
                                     <div className="count-box py-4 text-center">
                                         <i className="bi bi-journal-richtext text-center"></i>
-                                        {/* <span data-purecounter-start="0" data-purecounter-end={timeLeft.hours} className="purecounter">0</span> */}
-                                        <span>{timeLeft.hours}</span>
+                                        <span data-purecounter-start="0" data-purecounter-end={timeLeft.hours} className="purecounter">0</span>
+                                        {/* <span>{timeLeft.hours}</span> */}
                                         <p>Hours Remaining</p>
                                     </div>
                                     </div>
@@ -110,16 +113,16 @@ const CountdownTimer2 = ({size, date, pot}) => {
                 <div className="col-lg-4 col-md-5 col-6 text-center">
                 <div className="count-box py-4 text-center">
                     <i className="bi bi-clock text-center"></i>
-                    {/* <span data-purecounter-start="0" data-purecounter-end={timeLeft.days} className="purecounter">0</span> */}
-                    <span>{timeLeft.days}</span>
+                    <span data-purecounter-start="0" data-purecounter-end={timeLeft.days} className="purecounter">0</span>
+                    {/* <span>{timeLeft.days}</span> */}
                     <p>Days Remaining</p>
                 </div>
                 </div>
                 <div className="col-lg-4 col-md-5 col-6 text-center">
                 <div className="count-box py-4 text-center">
                     <i className="bi bi-journal-richtext text-center"></i>
-                    {/* <span data-purecounter-start="0" data-purecounter-end={timeLeft.hours > 0 ? `${timeLeft.hours}` : `${timeLeft.minutes} `} className="purecounter">0</span> */}
-                    <span>{timeLeft.hours > 0 ? `${timeLeft.hours}` : `${timeLeft.minutes} `}</span>
+                    <span data-purecounter-start="0" data-purecounter-end={timeLeft.hours > 0 ? `${timeLeft.hours}` : `${timeLeft.minutes} `} className="purecounter">0</span>
+                    {/* <span>{timeLeft.hours > 0 ? `${timeLeft.hours}` : `${timeLeft.minutes} `}</span> */}
                     <p>{timeLeft.hours > 0 ? `Hours Left` : `Minutes Left` }</p>
                 </div>
                 </div>

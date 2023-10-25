@@ -6,7 +6,7 @@ import NotVerified from '../components/NotVerified.jsx';
 import { useAuth } from "../hooks";
 import  videoPlaceHolder from '../assets/img/webpic.png'
 import GLightbox from 'glightbox';
-import CountdownTimer from '../components/Counter.jsx';
+import CountdownTimer2 from '../components/Counter2.jsx';
 import { Container } from 'react-bootstrap';
 import AOS from 'aos';
 
@@ -27,7 +27,7 @@ const About = ({pot, date}) => {
 
 <section id="about" className="about justify-content-between " data-aos="fade-up" data-aos-delay="400" style={{paddingBottom: "4rem" }} >
     <Container className="container " >
-    <CountdownTimer size={"col-lg-6"} pot={pot} date={date}  />
+    <CountdownTimer2 size={"col-lg-6"} pot={pot} date={date}  />
 
       <div className="row">
         <div className="col-lg-6 video-box align-self-baseline position-relative">
