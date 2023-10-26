@@ -56,9 +56,67 @@ export const getDonations = async () => {
 // path to get winner
 export const getWinner = async () => {
   try {
-    const { data } = await client.get(`/scholarship/winner`);
+    const { data } = await client.get(`/scholarship/previouswinner`);
     return data;
   } catch (error) {
     return catchError(error);
   }
 };
+
+// path to get all active winners
+export const getAllWinners = async () => {
+  const token = getToken();
+  try {
+    const { data } = await client.get(`/scholarship/winners`, {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    });
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
+// path to get winner by scholarship id
+export const getWinnerById = async (userId) => {
+  const token = getToken();
+  try {
+    const { data } = await client.get(`/scholarship/winner/${userId}`, {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    });
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+}
+// path to close active scholarship
+export const setActiveStatus = async (userId, userData) => {
+  const token = getToken();
+  try {
+    const { data } = await client.put(`/scholarship/active/${userId}`, userData, {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    });
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+}
+
+// path to get user aggregated data
+export const getNumberOfUsers = async () => {
+  const token = getToken();
+  try {
+    const { data } = await client.get(`/scholarship/users`, {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    });
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+}
