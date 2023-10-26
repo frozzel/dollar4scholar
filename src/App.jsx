@@ -20,6 +20,7 @@ import Dashboard from "./pages/Dashboard";
 import DonorSpotLight from "./pages/DonorSpotLight";
 import Winner from "./pages/Winner";
 import AdminDonorInfo from "./pages/AdminDonorInfo";
+import AdminWinnerInfo from "./pages/AdminWinnerInfo";
 
 
 
@@ -47,6 +48,7 @@ function App() {
         <Route path='/DonorSpotLight' element={<DonorSpotLight/>} />
         <Route path='/Winner' element={<Winner />} />
         <Route path='/AdminDonorInfo/:userId' element={<AdminDonorInfo />} />
+        <Route path="/AdminWinnerInfo/:userId" element={<AdminWinnerInfo />} />
       </Routes>
     <Footer />
    

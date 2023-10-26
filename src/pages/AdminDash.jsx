@@ -3,7 +3,7 @@ import { useAuth } from "../hooks";
 import NotVerified from '../components/NotVerified';
 import { useParams, Link } from 'react-router-dom';
 import { useNotification } from "../hooks";
-import { getDonations } from '../api/scholarship';
+import { getDonations, getAllWinners, getNumberOfUsers } from '../api/scholarship';
 import AOS from 'aos';
 import Counter from '../components/Counter';
 import {CgProfile} from "react-icons/cg";
@@ -144,6 +144,19 @@ const AdminDash = ({pot, date}) => {
 
 
 function StatisticsSection() {
+  const [users, setUsers] = useState([]);
+  const { updateNotification } = useNotification();
+
+  const fetchUsers = async () => {
+    const {error, users} = await getNumberOfUsers();
+    if (error) return updateNotification("error", error);
+    setUsers(...users);
+  }
+
+  useEffect(() => {
+    fetchUsers();
+  }, [])
+
   return (
     <div className="container-fluid">
       <section className='' style={{padding: 0}}>
@@ -158,12 +171,12 @@ function StatisticsSection() {
                       <CgProfile className="text-info fa-3x me-4" style={{ fontSize: "3.2rem",  }} />
                     </div>
                     <div>
-                      <h4>Total Users</h4>
-                      <p className="mb-0">Students & Donors</p>
+                      <h4>Total</h4>
+                      <p className="mb-0">All Users</p>
                     </div>
                   </div>
                   <div className="align-self-center">
-                    <h2 className="h1 mb-0">169,158</h2>
+                    <h2 className="h1 mb-0">{users.count}</h2>
                   </div>
                 </div>
               </div>
@@ -183,7 +196,7 @@ function StatisticsSection() {
                     </div>
                   </div>
                   <div className="align-self-center">
-                    <h2 className="h1 mb-0">84,695</h2>
+                    <h2 className="h1 mb-0">{users.studentCount}</h2>
                   </div>
                 </div>
               </div>
@@ -203,7 +216,7 @@ function StatisticsSection() {
                     </div>
                   </div>
                   <div className="align-self-center">
-                    <h2 className="h1 mb-0">84,695</h2>
+                    <h2 className="h1 mb-0">{users.donorCount}</h2>
                   </div>
                 </div>
               </div>
@@ -218,6 +231,7 @@ function StatisticsSection() {
 
 const ResentDonations = () => {
   const [donations, setDonations] = useState([]);
+  const { updateNotification } = useNotification();
 
   const fetchDonations = async () => {
     const {error, donations} = await getDonations();
@@ -255,61 +269,71 @@ const ResentDonations = () => {
 }
 
 const ActiveWinners = () => {
+  const [winners, setWinners] = useState([]);
+  const { updateNotification } = useNotification();
+
+
+  const fetchWinners = async () => {
+    const {error, winners} = await getAllWinners();
+    if (error) return updateNotification("error", error);
+    setWinners(winners);
+  }
+
+  useEffect(() => {
+    fetchWinners();
+  }, [])
+
+  
     return (
-        <div className="col-md-16" >
-        <div className="card mb-4 mb-lg-0" >
-        <div className="mt-3 text-center" >
-            <h5 className="">Winners</h5>
+      <div className="col-md-16">
+      <div className="card mb-4 mb-lg-0">
+        <div className="mt-3 text-center">
+          <h5 className="">Winners</h5>
         </div>
-      <hr></hr>
-      <div className="card-body p-0">
-        <ul className="list-group list-group-flush rounded-3">
-        <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-          <p className="mb-0">Image</p>
-          <p className="mb-0">Name</p>
-          <p className="mb-0">Pot Date</p>
-          <p className="mb-0 ">Status</p>
-          <p className="mb-0 ">Total</p>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center p-3" style={{backgroundColor: '#f4f8ec'}}>
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" className="fas fa-globe fa-lg text-warning rounded-circle img-fluid " style={{ width: '40px', objectFit: 'cover', }} />            
-          <p className="mb-0">John Smith</p>
-          <p className="mb-0">10/15/23</p>
-          <p className="mb-0 ">Open</p>
-          <p className="mb-0 " style={{color: '#94c045'}}>$10,000</p>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center p-3" >
-          <img src={women} alt="avatar" className="fas fa-globe fa-lg text-warning rounded-circle img-fluid " style={{ width: '40px', objectFit: 'cover',  }} />            
-          <p className="mb-0">Jane Doe</p>
-          <p className="mb-0">10/15/23</p>
-          <p className="mb-0 ">Open</p>
-          <p className="mb-0 " style={{color: '#94c045'}}>$7,000</p>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center p-3" style={{backgroundColor: '#f4f8ec'}}>
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" className="fas fa-globe fa-lg text-warning rounded-circle img-fluid " style={{ width: '40px', objectFit: 'cover', }} />            
-          <p className="mb-0">John Smith</p>
-          <p className="mb-0">10/15/23</p>
-          <p className="mb-0 ">Open</p>
-          <p className="mb-0 " style={{color: '#94c045'}}>$10,000</p>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-          <img src={women} alt="avatar" className="fas fa-globe fa-lg text-warning rounded-circle img-fluid " style={{ width: '40px', objectFit: 'cover', }} />            
-          <p className="mb-0">Jane Doe</p>
-          <p className="mb-0">10/15/23</p>
-          <p className="mb-0 ">Open</p>
-          <p className="mb-0 " style={{color: '#94c045'}}>$7,000</p>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center p-3" style={{backgroundColor: '#f4f8ec'}}>
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" className="fas fa-globe fa-lg text-warning rounded-circle img-fluid " style={{ width: '40px', objectFit: 'cover', }} />            
-          <p className="mb-0">John Smith</p>
-          <p className="mb-0">10/15/23</p>
-          <p className="mb-0 ">Open</p>
-          <p className="mb-0 " style={{color: '#94c045'}}>$10,000</p>
-          </li>
-          
-        </ul>
+        <hr></hr>
+        <div className="card-body p-0">
+          <ul className="list-group list-group-flush rounded-3">
+            <li className="list-group-item d-flex align-items-center justify-content-between align-items-center p-3">
+              <div className="col-2">
+                <p className="mb-0">Image</p>
+              </div>
+              <div className="col-2" style={{textAlign: "center"}}>
+                <p className="mb-0">Name</p>
+              </div>
+              <div className="col-2" style={{textAlign: "right"}}>
+                <p className="mb-0">Start Date</p>
+              </div>
+              <div className="col-2" style={{textAlign: "right"}}>
+              <p className="mb-0 ">Status</p>
+            </div>
+            <div className="col-2 " style={{textAlign: "right"}}>
+              <p className="mb-0 ">Total</p>
+            </div>
+            </li>
+            {winners.map((w, index) => (
+              <Link to={`/AdminWinnerInfo/${w._id}`} key={index}>
+              <li className="list-group-item d-flex align-items-center justify-content-between p-3" key={index}>
+                <div className="col-2">
+                  <img src={w.winner?.avatar.url} alt="avatar" className="fas fa-globe fa-lg text-warning rounded-circle img-fluid" style={{ width: '40px', objectFit: 'cover' }} />
+                </div>
+                <div className="col-2" style={{textAlign: "center"}}>
+                  <p className="mb-0">{w.winner?.name}</p>
+                </div>
+                <div className="col-2"style={{textAlign: "right"}}>
+                  <p className="mb-0">{new Date(w.dateStarted).toLocaleDateString()}</p>
+                </div>
+                <div className="col-2" style={{textAlign: "right"}}>
+                  <p className="mb-0 ">{w.active? "Open" : "Closed"}</p>
+                </div>
+                <div className="col-2 " style={{textAlign: "right"}}>
+                  <p className="mb-0 " style={{ color: '#94c045' }}>{`$${w.pot}`}</p>
+                </div>
+              </li>
+              </Link>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
     </div>
     )
 }

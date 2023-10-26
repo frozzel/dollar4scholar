@@ -6,7 +6,6 @@ import { getWinner } from '../api/scholarship';
 import './winner.css'
 import { getCurrentPot } from '../api/scholarship';
 import CountdownTimer2 from '../components/Counter2.jsx';
-import Container from '../components/Container';
 
 
 
