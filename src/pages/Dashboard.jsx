@@ -372,7 +372,7 @@ const Dashboard = () => {
   );
   } 
 //check if user is a donor
-if (user.type === "donor") {
+if (user.type === "donor" ) {
   return (
     <DonorDashboard pot={pot} date={date}/>  
 

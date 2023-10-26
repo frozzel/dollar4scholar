@@ -1,25 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import { Button } from 'react-bootstrap';
 import { useAuth } from "../hooks";
 import NotVerified from '../components/NotVerified';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useNotification } from "../hooks";
-import { getProfile } from "../api/user";
-import UserUploadDonor from "../components/UserUploadDonor";
-import UserWallet from '../components/UserWallet';
+import { getDonations } from '../api/scholarship';
 import AOS from 'aos';
-import UserDonate from '../components/UserDonate';
 import Counter from '../components/Counter';
 import {CgProfile} from "react-icons/cg";
 import {FaUserGraduate} from "react-icons/fa";
 import {BsCoin} from "react-icons/bs";
 import admin from '../assets/img/admin.jpg';
-import client1 from '../assets/img/clients/client-1.png';
-import client2 from '../assets/img/clients/client-2.png';
-import client3 from '../assets/img/clients/client-3.png';
-import client4 from '../assets/img/clients/client-4.png';
-import client5 from '../assets/img/clients/client-5.png';
-import client6 from '../assets/img/clients/client-6.png';
 import women from '../assets/img/women.png';
 
 
@@ -40,121 +30,15 @@ const Breadcrumbs = () => {
   };
 
 const AdminDash = ({pot, date}) => {
-    const [user, setUser] = useState({});
     const [message, setMessage] = useState("");
     const { authInfo } = useAuth();
     const { isLoggedIn } = authInfo;
     const isVerified = authInfo.profile?.isVerified;
     const {userId} = useParams();
     const { updateNotification } = useNotification();
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [selectedUser, setSelectedUser] = useState(null);
     const {notification} = useNotification();
-    const [showWalletModal, setShowWalletModal] = useState(false);
-    const [walletState, setWallet] = useState(null);
-    const [contribution, setContribution] = useState([]);
-    const [showDonateModal, setShowDonateModal] = useState(false);
-    const [donateState, setDonate] = useState(null);
-  
+ 
 
-    const fetchProfile = async () => {
-        const { error, user } = await getProfile(userId);
-          if (error) return updateNotification("error", error);
-          setContribution(...user.contribution);
-          setUser(user);
-    };
-
-    const handleOnEditClick = () => {
-        const { id, name, address, phone, avatar} = user;
-        
-        setSelectedUser({
-          id,
-          name,
-          address,
-          phone,
-          avatar,
-        });
-  
-        setShowEditModal(true);
-      };
-      const hideEditModal = () => {
-        setShowEditModal(false);
-        setSelectedUser(null);
-      };
-      //add donate funds on click
-      const handleOnDonateClick = () => {
-        const { id, name, wallet} = user;
-        setDonate({
-          id,
-          name,
-          wallet,
-        })
-        setShowDonateModal(true);
-      };
-      const hideDonateModal = () => {
-        setShowDonateModal(false);
-        setDonate(null);
-      };
-
-      //add wallet funds on click
-      const handleOnEditClickWallet = () => {
-        const { id, name, wallet} = user;
-        setWallet({
-          id,
-          name,
-          wallet,
-        })
-        setShowWalletModal(true);
-      };
-
-      const hideWalletModal = () => {
-        setShowWalletModal(false);
-        setWallet(null);
-      };
-
-      //update wallet funds on finish
-      const handleOnWalletUpdate = (updatedWallet) => {
-        
-        setUser(prevUser => {
-          return {
-            ...prevUser,
-            wallet: updatedWallet,
-          };
-        });
-      };
-  
-      const handleOnUserUpdate = (updatedUser) => {
-        const updatedFields = {
-          name: updatedUser.name,
-          address: updatedUser.address,
-          avatar: updatedUser.avatar,
-          phone: updatedUser.phone,
-        };
-      
-        setUser(prevUser => {
-          return {
-            ...prevUser,
-            ...updatedFields,
-          };
-        });
-      };
-
-      // handle on donate update
-      const handleOnDonateUpdate = (updatedDonate, contributions) => {
-        setUser(prevUser => {
-          return {
-            ...prevUser,
-            wallet: updatedDonate,
-            contribution: [...prevUser.contribution, contributions]
-          };
-        });
-        setContribution([...contribution, contributions])
-      };
-
-
-    useEffect(() => {
-        if (userId)fetchProfile() && window.scrollTo(0, 0);
-    }, [userId]);
 
     useEffect(() => {
         setMessage(notification)
@@ -195,12 +79,6 @@ const AdminDash = ({pot, date}) => {
         );
     }
 
-  const { name, avatar, address, phone, wallet } = user;
-
-
-
-
-
   return (
     <main id="main">
     <Breadcrumbs />
@@ -215,9 +93,12 @@ const AdminDash = ({pot, date}) => {
             <div className="card mb-4">
               <div className="card-body text-center p-0">
             
-                    <img src={admin} alt="admin" className="rounded-rectangle img-fluid mx-auto" style={{ width: '250px', objectFit: 'cover', backgroundColor: '#eee'}} />
-
+                <img src={admin} alt="admin" className="rounded-rectangle img-fluid mx-auto" style={{ width: '250px', objectFit: 'cover', backgroundColor: '#eee'}} />
+                <div className="mb-1 text-center">
+                  Image by <a href="https://www.freepik.com/free-vector/flat-customer-support-illustration_13184991.htm#query=admin&position=7&from_view=search&track=sph">Freepik</a>
+                </div>
               </div>
+             
             </div>
     
             <ResentDonations />
@@ -250,26 +131,7 @@ const AdminDash = ({pot, date}) => {
           
         </div>
       </div>
-    {/* //wallet modal */}
-    <UserWallet
-        visible={showWalletModal}
-        initialState={walletState}
-        onSuccess={handleOnWalletUpdate}
-        onClose={hideWalletModal}
-      />
 
-      <UserUploadDonor
-        visible={showEditModal}
-        initialState={selectedUser}
-        onSuccess={handleOnUserUpdate}
-        onClose={hideEditModal}
-      />
-          <UserDonate
-        visible={showDonateModal}
-        initialState={donateState}
-        onSuccess={handleOnDonateUpdate}
-        onClose={hideDonateModal}
-      />
     </section>
     </main>
   );
@@ -355,44 +217,43 @@ function StatisticsSection() {
 }
 
 const ResentDonations = () => {
-    return (
-        <div className="card mb-4 mb-lg-0">
+  const [donations, setDonations] = useState([]);
+
+  const fetchDonations = async () => {
+    const {error, donations} = await getDonations();
+    if (error) return updateNotification("error", error);
+    setDonations(donations);
+  }
+
+  useEffect(() => {
+    fetchDonations();
+  }, [])
+
+  return (
+    <>
+      <div className="card mb-4 mb-lg-0">
         <div className="mt-3 text-center">
-            <h5 className="">Recent Donors</h5>
+          <h5 className="">Recent Donors</h5>
         </div>
-        <hr></hr>
-      <div className="card-body p-0">
-        <ul className="list-group list-group-flush rounded-3">
-          <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-            <img className="fas fa-globe fa-lg text-warning" src={client1} style={{ width: '50px', objectFit: 'cover', }} ></img>
-            <p className="mb-0">Myob</p>
-            <p className="mb-0 " style={{color: '#94c045'}}>$300</p>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-          <img className="fas fa-globe fa-lg text-warning" src={client2} style={{ width: '50px', objectFit: 'cover', }} ></img>
-          <p className="mb-0">Belimo</p>
-          <p className="mb-0 " style={{color: '#94c045'}}>$150</p>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-          <img className="fas fa-globe fa-lg text-warning" src={client3} style={{ width: '50px', objectFit: 'cover', }} ></img>
-          <p className="mb-0">Life Groups</p>
-          <p className="mb-0 " style={{color: '#94c045'}}>$650</p>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-          <img className="fas fa-globe fa-lg text-warning" src={client4} style={{ width: '50px', objectFit: 'cover', }} ></img>
-          <p className="mb-0">Lilly</p>
-          <p className="mb-0 " style={{color: '#94c045'}}>$950</p>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-          <img className="fas fa-globe fa-lg text-warning" src={client5} style={{ width: '50px', objectFit: 'cover', }} ></img>
-          <p className="mb-0">Citrus</p>
-          <p className="mb-0 " style={{color: '#94c045'}}>$400</p>
-          </li>
-        </ul>
+        
+        <div className="card-body p-0">
+          <ul className="list-group list-group-flush rounded-3">
+            {donations.slice(0, 5).reverse().map((donation, index) => (
+              <Link to={`/AdminDonorInfo/${donation.userId._id}`} key={index}>
+              <li key={index} className="list-group-item d-flex justify-content-between align-items-center p-3">
+                <img className="fas fa-globe fa-lg text-warning" src={donation.userId.avatar?.url} style={{ width: '50px', objectFit: 'cover', }} ></img>
+                <p className="mb-0">{donation.userId.name}</p>
+                <p className="mb-0 " style={{color: '#94c045'}}>{`$${donation.amount}`}</p>
+              </li>
+              </Link>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
-    )
+    </>
+  )
 }
+
 const ActiveWinners = () => {
     return (
         <div className="col-md-16" >

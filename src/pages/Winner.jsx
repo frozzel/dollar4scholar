@@ -51,7 +51,7 @@ const Breadcrumbs = () => {
     const { name, school, major, avatar } = winner;
     return (
         
-      <section className="section about-section about" id="about" data-aos="fade-up">
+      <section className=" about section about-section " id="about" data-aos="fade-up">
       <div className="container">
           <div className="row">
               <div className="col-lg-6 ">
@@ -59,8 +59,10 @@ const Breadcrumbs = () => {
                       {avatar ? (
                           <img src={avatar.url} title="" alt="" className="rounded-circle img-fluid mx-auto"/>
                       ) : (
-                          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" title="" alt="" />
+                          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" title="" alt="avatar holder" className=" img-fluid mx-auto mt-5" />
                       )}
+
+                      
                   </div>
               </div>
               <div className="col-lg-6 " style={{marginTop: "5rem"}}>
@@ -140,7 +142,6 @@ const Winner = () => {
     />
     {date === undefined  || pot === undefined  ? (<> </> ) : (<WinnerSection pot={pot} date={date} potWinner={potWinner} winner={winner}/>)}
 
-    {/* <WinnerSection potWinner={potWinner} winner={winner} pot={pot} date={date}/> */}
     </main>
     </>
     );
