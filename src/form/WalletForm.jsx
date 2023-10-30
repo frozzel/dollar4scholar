@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ImSpinner3 } from "react-icons/im";
-import { useNotification } from "../hooks";
 import { Button } from "react-bootstrap";
+import StripeCheckout from "react-stripe-checkout";
+
 
 const defaultUserInfo = {
   name: "",
@@ -27,6 +28,7 @@ export default function WalletForm({
     setUserInfo({ ...userInfo, [name]: value });
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -39,6 +41,7 @@ export default function WalletForm({
 
     onSubmit(jsonPayload); // Submit the JSON object
   };
+
 
   return (
     <form
@@ -80,5 +83,6 @@ export default function WalletForm({
         </Button>
         </div>
     </form>
+    
   );
-}
+};
