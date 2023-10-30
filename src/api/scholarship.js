@@ -120,3 +120,22 @@ export const getNumberOfUsers = async () => {
     return catchError(error);
   }
 }
+
+// path to get session data
+export const getSessionData = async () => {
+  try {
+    const { data } = await client.post(`/stripe/create-checkout-session`);
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+}
+// get session status
+export const getSessionStatus = async (sessionId) => {
+  try {
+    const { data } = await client.get(`/stripe/session-status?session_id=${sessionId}`);
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+}

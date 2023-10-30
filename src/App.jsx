@@ -1,5 +1,11 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {loadStripe} from '@stripe/stripe-js';
+import client from "./api/client";
+import {
+  EmbeddedCheckoutProvider,
+  EmbeddedCheckout
+} from '@stripe/react-stripe-js';
+import { Routes, Route, Navigate } from "react-router-dom";
 import './App.css'
 import Header from './components/Header'
 import Home from './pages/Home'
@@ -21,8 +27,8 @@ import DonorSpotLight from "./pages/DonorSpotLight";
 import Winner from "./pages/Winner";
 import AdminDonorInfo from "./pages/AdminDonorInfo";
 import AdminWinnerInfo from "./pages/AdminWinnerInfo";
-
-
+import CheckoutForm from "./components/CheckoutForm";
+import Return from "./components/Return";
 
 
 function App() {
@@ -49,8 +55,10 @@ function App() {
         <Route path='/Winner' element={<Winner />} />
         <Route path='/AdminDonorInfo/:userId' element={<AdminDonorInfo />} />
         <Route path="/AdminWinnerInfo/:userId" element={<AdminWinnerInfo />} />
+        <Route path="/checkout" element={<CheckoutForm />} />
+          <Route path="/return" element={<Return />} />
       </Routes>
-    <Footer />
+    {/* <Footer /> */}
    
         
   </>)
